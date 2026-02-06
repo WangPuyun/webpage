@@ -31,7 +31,7 @@ type ResearchItem = Paper | Patent;
 const papers: Paper[] = [
   {
     title: '基于深度学习的计算成像方法研究',
-    authors: '王雨晨, 等',
+    authors: '王朴匀, 等',
     journal: '光学学报',
     year: '2025',
     abstract:
@@ -42,7 +42,7 @@ const papers: Paper[] = [
   },
   {
     title: '仿生视觉信息处理在机器人导航中的应用',
-    authors: '王雨晨, 等',
+    authors: '王朴匀, 等',
     journal: '机器人',
     year: '2024',
     abstract:
@@ -55,7 +55,7 @@ const papers: Paper[] = [
 const patents: Patent[] = [
   {
     title: '一种基于神经网络的智能视觉检测系统',
-    inventors: '王雨晨, 等',
+    inventors: '王朴匀, 等',
     number: 'CN2024XXXXXXXX',
     date: '2024年',
     abstract:

@@ -75,7 +75,7 @@ export default function Footer() {
               className="whitespace-nowrap text-[20vw] font-bold text-white leading-none"
               style={{ transform: `translateX(-${i * 10}%)` }}
             >
-              王雨晨 王雨晨 王雨晨
+              王朴匀 王朴匀 王朴匀
             </div>
           ))}
         </div>
@@ -136,7 +136,7 @@ export default function Footer() {
           <div className="border-t border-white/10 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-white/40 text-sm">
-                © 2025 王雨晨. All rights reserved.
+                © 2025 王朴匀. All rights reserved.
               </p>
               <p className="text-white/40 text-sm flex items-center gap-1">
                 Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> in Fuzhou

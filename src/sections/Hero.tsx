@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
+import ThreeBackground from './ThreeBackground';
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -90,20 +91,8 @@ export default function Hero() {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image */}
-      <div
-        className="hero-bg absolute inset-0 w-full h-full"
-        style={{
-          transform: `translate(${mousePosition.x * -10}px, ${mousePosition.y * -10}px) scale(1.1)`,
-          transition: 'transform 0.3s ease-out',
-        }}
-      >
-        <img
-          src="/images/hero-bg.jpg"
-          alt="Hero Background"
-          className="w-full h-full object-cover"
-        />
-      </div>
+      {/* Three.js Background */}
+      <ThreeBackground />
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
@@ -136,7 +125,7 @@ export default function Hero() {
             transition: 'transform 0.3s ease-out',
           }}
         >
-          <span className="text-gradient">王雨晨</span>
+          <span className="text-gradient">王朴匀</span>
         </h1>
 
         <div className="overflow-hidden">
@@ -144,7 +133,7 @@ export default function Hero() {
             ref={subtitleRef}
             className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light tracking-wider whitespace-nowrap mx-auto"
           >
-            机械工程研究生 / 计算机视觉研究者
+            人工智能课题 / 计算机视觉研究者
           </p>
         </div>
 

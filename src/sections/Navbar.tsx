@@ -55,7 +55,7 @@ export default function Navbar() {
               }}
               className="text-xl font-bold text-white hover:text-neon-green transition-colors"
             >
-              <span className="text-gradient">王雨晨</span>
+              <span className="text-gradient">王朴匀</span>
             </a>
 
             {/* Desktop Navigation */}
