@@ -41,6 +41,7 @@ const awards = [
   },
 ];
 
+
 const certificates = [
   { title: "国家奖学金", org: "教育部/学校", date: "2025", src: "/images/cert-1.jpg" },
   { title: "研究生中期奖学金一等奖", org: "福州大学", date: "2025", src: "/images/cert-2.png" },
