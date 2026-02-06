@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GraduationCap, Award, Users, BookOpen } from 'lucide-react';
+import { withBase } from "@/utils/asset";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -121,15 +122,12 @@ export default function About() {
           {/* Left Column - Visual */}
           <div ref={imageRef} className="relative">
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-              {/* Placeholder for profile image */}
-              <div className="w-full h-full bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-neon-green to-neon-cyan flex items-center justify-center">
-                    <span className="text-4xl font-bold text-dark-bg">王</span>
-                  </div>
-                  <p className="text-white/50 text-sm">个人照片</p>
-                </div>
-              </div>
+                  {/* 个人照片 */}
+                  <img 
+                    src={withBase("/images/personal_photo3.jpg")}
+                    alt="王普云"
+                    className="w-full h-full object-cover"
+                  />
 
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 via-transparent to-transparent" />

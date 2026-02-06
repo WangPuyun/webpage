@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Trophy, Medal, Award, Star } from 'lucide-react';
+import { Medal, Award, Star } from 'lucide-react';
 import ScrollGallery from "./ScrollGallery";
 import "./ScrollGallery.css";
 import { withBase } from "@/utils/asset";
@@ -9,14 +9,14 @@ import { withBase } from "@/utils/asset";
 gsap.registerPlugin(ScrollTrigger);
 
 const awards = [
-  {
-    title: '国家奖学金',
-    level: '国家级',
-    period: '硕士期间',
-    description: '研究生国家奖学金，表彰优秀学术表现',
-    icon: Trophy,
-    color: 'from-yellow-400 to-orange-500',
-  },
+  // {
+  //   title: '国家奖学金',
+  //   level: '国家级',
+  //   period: '硕士期间',
+  //   description: '研究生国家奖学金，表彰优秀学术表现',
+  //   icon: Trophy,
+  //   color: 'from-yellow-400 to-orange-500',
+  // },
   {
     title: '福州大学研究生中期奖学金一等奖',
     level: '校级',
@@ -44,14 +44,14 @@ const awards = [
 ];
 
 const galleryItems = [
-  { src: withBase("/images/cert-1.jpg"), label: "#武汉" },
-  { src: withBase("/images/cert-2.png"), label: "#长沙" },
-  { src: withBase("/images/cert-2.png"), label: "#杭州" },
-  { src: withBase("/images/cert-2.png"), label: "#上海" },
-  { src: withBase("/images/cert-2.png"), label: "#阿那亚" },
-  { src: withBase("/images/cert-1.jpg"), label: "#武汉" },
-  { src: withBase("/images/cert-1.jpg"), label: "#武汉" },
-  { src: withBase("/images/cert-1.jpg"), label: "#武汉" },
+  { src: withBase("/images/cert-1.jpg"), label: "" },
+  { src: withBase("/images/cert-2.png"), label: "" },
+  { src: withBase("/images/cert-2.png"), label: "" },
+  { src: withBase("/images/cert-2.png"), label: "" },
+  { src: withBase("/images/cert-2.png"), label: "" },
+  { src: withBase("/images/cert-1.jpg"), label: "" },
+  { src: withBase("/images/cert-1.jpg"), label: "" },
+  { src: withBase("/images/cert-1.jpg"), label: "" },
 ];
 
 

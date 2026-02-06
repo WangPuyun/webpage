@@ -15,6 +15,7 @@ import {
   Terminal,
   Layers,
 } from 'lucide-react';
+import { withBase } from "@/utils/asset";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,7 +27,7 @@ const skills = [
     icon: Image,
     description: '图像处理与设计',
     color: 'from-blue-400 to-cyan-500',
-    images: ['/images/personal_photo.jpg', 'ps-2', 'ps-3'],
+    images: [withBase("/images/personal_photo.jpg"), withBase("/images/firework.jpg"), 'ps-3'],
   },
   {
     name: '剪映',
@@ -35,7 +36,7 @@ const skills = [
     icon: Video,
     description: '视频剪辑与后期',
     color: 'from-purple-400 to-pink-500',
-    videos: ['/videos/UAV.mp4', 'video-2', 'video-3'],
+    videos: [withBase("/videos/UAV.mp4"), withBase("/videos/firework.mp4"), 'video-3'],
   },
   {
     name: '吉他',
@@ -44,7 +45,7 @@ const skills = [
     icon: Music,
     description: '音乐演奏',
     color: 'from-orange-400 to-red-500',
-    videos: ['guitar-1'],
+    videos: [withBase("/videos/guitar.mp4")],
   },
   {
     name: 'Keil',
