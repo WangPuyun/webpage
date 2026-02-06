@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Trophy, Medal, Award, Star } from 'lucide-react';
-import CertificateScroller from "./CertificateScroller";
+import ScrollGallery from "./ScrollGallery";
+import "./ScrollGallery.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,14 +42,17 @@ const awards = [
   },
 ];
 
-
-const certificates = [
-  { title: "国家奖学金", org: "教育部/学校", date: "2025", src: "/images/cert-1.jpg" },
-  { title: "研究生中期奖学金一等奖", org: "福州大学", date: "2025", src: "/images/cert-2.png" },
-  { title: "机械设计创新大赛二等奖", org: "福建省", date: "2024", src: "/images/cert-3.jpg" },
-  { title: "综合奖学金三等奖", org: "福州大学", date: "2023", src: "/images/cert-4.jpg" },
-  { title: "其他荣誉", org: "某单位", date: "2022", src: "/images/cert-5.png" },
+const galleryItems = [
+  { src: "/images/cert-1.jpg", label: "#武汉" },
+  { src: "/images/cert-2.png", label: "#长沙" },
+  { src: "/images/cert-2.png", label: "#杭州" },
+  { src: "/images/cert-2.png", label: "#上海" },
+  { src: "/images/cert-2.png", label: "#阿那亚" },
+  { src: "/images/cert-1.jpg", label: "#武汉" },
+  { src: "/images/cert-1.jpg", label: "#武汉" },
+  { src: "/images/cert-1.jpg", label: "#武汉" },
 ];
+
 
 export default function Awards() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -100,7 +104,7 @@ export default function Awards() {
     <section
       id="awards"
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-24 md:py-32 overflow-x-clip"
     >
       {/* Background */}
       <div className="absolute inset-0 bg-dark-bg" />
@@ -200,9 +204,10 @@ export default function Awards() {
           ))}
         </div>
         {/* Certificates */}
-        <div className="mt-10">
-          <CertificateScroller certificates={certificates} />
+        <div>
+          <ScrollGallery items={galleryItems} />
         </div>
+        
       </div>
     </section>
   );

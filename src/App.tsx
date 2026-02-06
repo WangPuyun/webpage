@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-dark-bg text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-dark-bg text-white">
       {/* Global background gradient */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-dark-bg via-dark-card to-dark-bg" />

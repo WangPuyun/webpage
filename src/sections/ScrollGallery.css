@@ -1,0 +1,54 @@
+/* ScrollGallery.css */
+.img-group-container {
+    height: 150vh;          /* 提供垂直滚动空间，驱动动画 */
+    position: relative;
+  }
+  
+  .img-group-container > div {
+    position: sticky;        /* 固定在视口顶部 */
+    top: 0;
+    overflow: hidden;        /* 裁剪水平溢出 */
+    height: 70vh;
+  }
+  
+  .img-group {
+    display: flex;           /* 图片水平排列 */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .img-container {
+    display: flex;
+    width: 22vw;             
+    height: 70vh;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .img-container img {
+    width: 500px;
+    height: auto;
+    border-radius: 12px;
+  }
+  
+  .img-container h3 {
+    font-size: 48px;
+    font-weight: 700;
+    position: relative;
+    bottom: 30px;
+  }
+  
+  /* 进度条 */
+  .progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #00FFD9;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
