@@ -21,7 +21,7 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
     // 核心动画：垂直滚动 → 水平位移
     const controls1 = scroll(
       animate(".img-group", {
-        transform: ["none", `translateX(-${(items.length - 1) * 3}vw)`],
+        transform: ["none", `translateX(-${(items.length - 1) * 18}vw)`],
       }),
       { target: container }
     );

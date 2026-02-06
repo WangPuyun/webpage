@@ -1,12 +1,12 @@
 /* ScrollGallery.css */
 .img-group-container {
-    height: 150vh;          /* 提供垂直滚动空间，驱动动画 */
+    height: 250vh;          /* 提供垂直滚动空间，驱动动画 */
     position: relative;
   }
   
   .img-group-container > div {
     position: sticky;        /* 固定在视口顶部 */
-    top: 0;
+    top: 20vh;
     overflow: hidden;        /* 裁剪水平溢出 */
     height: 70vh;
   }
