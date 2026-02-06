@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Trophy, Medal, Award, Star } from 'lucide-react';
 import ScrollGallery from "./ScrollGallery";
 import "./ScrollGallery.css";
+import { withBase } from "@/utils/asset";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,14 +44,14 @@ const awards = [
 ];
 
 const galleryItems = [
-  { src: "/images/cert-1.jpg", label: "#武汉" },
-  { src: "/images/cert-2.png", label: "#长沙" },
-  { src: "/images/cert-2.png", label: "#杭州" },
-  { src: "/images/cert-2.png", label: "#上海" },
-  { src: "/images/cert-2.png", label: "#阿那亚" },
-  { src: "/images/cert-1.jpg", label: "#武汉" },
-  { src: "/images/cert-1.jpg", label: "#武汉" },
-  { src: "/images/cert-1.jpg", label: "#武汉" },
+  { src: withBase("/images/cert-1.jpg"), label: "#武汉" },
+  { src: withBase("/images/cert-2.png"), label: "#长沙" },
+  { src: withBase("/images/cert-2.png"), label: "#杭州" },
+  { src: withBase("/images/cert-2.png"), label: "#上海" },
+  { src: withBase("/images/cert-2.png"), label: "#阿那亚" },
+  { src: withBase("/images/cert-1.jpg"), label: "#武汉" },
+  { src: withBase("/images/cert-1.jpg"), label: "#武汉" },
+  { src: withBase("/images/cert-1.jpg"), label: "#武汉" },
 ];
 
 
