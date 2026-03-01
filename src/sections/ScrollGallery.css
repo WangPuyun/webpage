@@ -122,23 +122,20 @@
   }
 
   .img-group-container > div {
-    top: 10vh;
-    height: 60vh;
+    top: 8vh;
+    height: 75vh;
   }
 
   .img-container {
-    width: 72vw;
-    min-width: 240px;
-    max-width: 340px;
-  }
-
-  .img-group {
-    gap: 1rem;
-    padding: 0 5vw;
+    width: 80vw;
+    min-width: 260px;
+    max-width: none;
   }
 
   .img-container .img-wrapper {
     border-radius: 12px;
+    aspect-ratio: auto;
+    height: 60vh;
   }
 
   .img-container img {

@@ -21,7 +21,7 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
     // 根据屏幕宽度动态计算位移量
     const getTranslateAmount = () => {
       const vw = window.innerWidth;
-      if (vw <= 640) return (items.length - 1) * 74; // 移动端：72vw 卡片宽度
+      if (vw <= 640) return (items.length - 1) * 82; // 移动端：80vw 卡片宽度
       if (vw <= 1024) return (items.length - 1) * 38; // 平板：36vw
       return (items.length - 1) * 30; // 桌面：28vw 卡片宽度
     };
