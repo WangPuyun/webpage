@@ -22,25 +22,24 @@
   margin: 0;
   padding: 0 4vw;
   gap: 1.5rem;
+  align-items: center;
 }
 
-/* ── 单张卡片 ── */
+/* ── 单张卡片：高度驱动，宽度自适应 ── */
 .img-container {
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 28vw;
-  min-width: 320px;
-  max-width: 520px;
+  width: auto;
   position: relative;
 }
 
 /* 图片外层 glass 卡片 */
 .img-container .img-wrapper {
-  width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 55vh;
+  width: auto;
   border-radius: 16px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.03);
@@ -55,17 +54,12 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 255, 217, 0.06);
 }
 
-/* 图片本身 */
+/* 图片本身：高度撑满，宽度自适应 */
 .img-container img {
-  width: 100%;
   height: 100%;
-  object-fit: cover;
+  width: auto;
+  display: block;
   border-radius: 16px;
-  transition: transform 0.5s ease;
-}
-
-.img-container:hover img {
-  transform: scale(1.03);
 }
 
 /* 标签 */
@@ -105,9 +99,8 @@
     height: 180vh;
   }
 
-  .img-container {
-    width: 36vw;
-    min-width: 280px;
+  .img-container .img-wrapper {
+    height: 50vh;
   }
 
   .img-group {
@@ -126,20 +119,18 @@
     height: 75vh;
   }
 
-  .img-container {
-    width: 80vw;
-    min-width: 260px;
-    max-width: none;
-  }
-
   .img-container .img-wrapper {
-    border-radius: 12px;
-    aspect-ratio: auto;
     height: 60vh;
+    border-radius: 12px;
   }
 
   .img-container img {
     border-radius: 12px;
+  }
+
+  .img-group {
+    gap: 1rem;
+    padding: 0 5vw;
   }
 
   .img-container h3 {

@@ -1,5 +1,5 @@
 // ScrollGallery.tsx
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { animate, scroll } from "motion";
 
 interface GalleryItem {
@@ -14,29 +14,27 @@ interface ScrollGalleryProps {
 export default function ScrollGallery({ items }: ScrollGalleryProps) {
   const containerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  const initScroll = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // 根据屏幕宽度动态计算位移量
-    const getTranslateAmount = () => {
-      const vw = window.innerWidth;
-      if (vw <= 640) return (items.length - 1) * 82; // 移动端：80vw 卡片宽度
-      if (vw <= 1024) return (items.length - 1) * 38; // 平板：36vw
-      return (items.length - 1) * 30; // 桌面：28vw 卡片宽度
-    };
+    const imgGroup = container.querySelector(".img-group") as HTMLElement;
+    if (!imgGroup) return;
 
-    const translateVw = getTranslateAmount();
+    // 从 DOM 实际宽度计算位移量，适配任意纵横比混排
+    const scrollWidth = imgGroup.scrollWidth;
+    const viewportWidth = window.innerWidth;
+    const translateAmount = Math.max(0, scrollWidth - viewportWidth + 40);
 
-    // 核心动画：垂直滚动 → 水平位移
+    if (translateAmount <= 0) return;
+
     const controls1 = scroll(
       animate(".img-group", {
-        transform: ["none", `translateX(-${translateVw}vw)`],
+        transform: ["none", `translateX(-${translateAmount}px)`],
       }),
       { target: container }
     );
 
-    // 进度条动画
     const controls2 = scroll(
       animate(".progress", { scaleX: [0, 1] }),
       { target: container }
@@ -50,7 +48,42 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
         (controls2 as { stop: () => void }).stop();
       }
     };
-  }, [items.length]);
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // 等所有图片加载完成后再计算宽度（不同纵横比图片宽度不同）
+    const images = container.querySelectorAll("img");
+    let loadedCount = 0;
+    let cleanup: (() => void) | undefined;
+
+    const tryInit = () => {
+      loadedCount++;
+      if (loadedCount >= images.length) {
+        cleanup = initScroll();
+      }
+    };
+
+    images.forEach((img) => {
+      if (img.complete) {
+        tryInit();
+      } else {
+        img.addEventListener("load", tryInit, { once: true });
+        img.addEventListener("error", tryInit, { once: true });
+      }
+    });
+
+    // 兜底：如果没有图片也初始化
+    if (images.length === 0) {
+      cleanup = initScroll();
+    }
+
+    return () => {
+      cleanup?.();
+    };
+  }, [items.length, initScroll]);
 
   return (
     <>
