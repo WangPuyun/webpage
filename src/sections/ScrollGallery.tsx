@@ -29,8 +29,8 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
 
     const scrollWidth = imgGroup.scrollWidth;
     const viewportWidth = window.innerWidth;
-    // 右侧 padding(4vw) + gap + 安全边距，确保最后一张完整可见
-    const rightBuffer = viewportWidth * 0.08 + 1200;//这里调整间距以完全显示最后一张奖状图像
+    // 用视口宽度的比例作为缓冲，大屏大缓冲、小屏小缓冲，比例统一
+    const rightBuffer = viewportWidth * 0.6;
     const overflowWidth = Math.max(0, scrollWidth - viewportWidth + rightBuffer);
 
     if (overflowWidth <= 0) return;
