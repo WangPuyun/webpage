@@ -1,6 +1,7 @@
 /* ScrollGallery.css */
 
 /* ── 滚动容器 ── */
+/* 实际高度由组件根据内容宽度动态计算，此处仅作兜底 */
 .img-group-container {
   height: 200vh;
   position: relative;
@@ -95,10 +96,6 @@
 
 /* 平板 */
 @media (max-width: 1024px) {
-  .img-group-container {
-    height: 180vh;
-  }
-
   .img-container .img-wrapper {
     height: 50vh;
   }
@@ -110,10 +107,6 @@
 
 /* 手机 */
 @media (max-width: 640px) {
-  .img-group-container {
-    height: 160vh;
-  }
-
   .img-group-container > div {
     top: 8vh;
     height: 75vh;

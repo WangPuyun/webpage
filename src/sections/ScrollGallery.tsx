@@ -1,5 +1,5 @@
 // ScrollGallery.tsx
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { animate, scroll } from "motion";
 
 interface GalleryItem {
@@ -11,8 +11,14 @@ interface ScrollGalleryProps {
   items: GalleryItem[];
 }
 
+// 控制滚动速度感受：越大滚得越慢
+const VH_PER_VW = 1.2;
+const MIN_HEIGHT_VH = 150;
+
 export default function ScrollGallery({ items }: ScrollGalleryProps) {
   const containerRef = useRef<HTMLElement>(null);
+  const [containerHeight, setContainerHeight] = useState(MIN_HEIGHT_VH);
+  const cleanupRef = useRef<(() => void) | null>(null);
 
   const initScroll = useCallback(() => {
     const container = containerRef.current;
@@ -21,48 +27,62 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
     const imgGroup = container.querySelector(".img-group") as HTMLElement;
     if (!imgGroup) return;
 
-    // 从 DOM 实际宽度计算位移量，适配任意纵横比混排
     const scrollWidth = imgGroup.scrollWidth;
     const viewportWidth = window.innerWidth;
-    const translateAmount = Math.max(0, scrollWidth - viewportWidth + 40);
+    // 右侧 padding(4vw) + gap + 安全边距，确保最后一张完整可见
+    const rightBuffer = viewportWidth * 0.08 + 1500;
+    const overflowWidth = Math.max(0, scrollWidth - viewportWidth + rightBuffer);
 
-    if (translateAmount <= 0) return;
+    if (overflowWidth <= 0) return;
 
-    const controls1 = scroll(
-      animate(".img-group", {
-        transform: ["none", `translateX(-${translateAmount}px)`],
-      }),
-      { target: container }
+    // 根据实际溢出宽度反算容器高度
+    const neededVh = Math.max(
+      MIN_HEIGHT_VH,
+      (overflowWidth / viewportWidth) * 100 * VH_PER_VW + 100
     );
+    setContainerHeight(neededVh);
 
-    const controls2 = scroll(
-      animate(".progress", { scaleX: [0, 1] }),
-      { target: container }
-    );
+    // 双重 rAF：确保 React 将新高度写入 DOM 后再绑定动画
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // 防止组件已卸载
+        if (!containerRef.current) return;
 
-    return () => {
-      if (typeof controls1 === "object" && "stop" in controls1) {
-        (controls1 as { stop: () => void }).stop();
-      }
-      if (typeof controls2 === "object" && "stop" in controls2) {
-        (controls2 as { stop: () => void }).stop();
-      }
-    };
+        const controls1 = scroll(
+          animate(".img-group", {
+            transform: ["none", `translateX(-${overflowWidth}px)`],
+          }),
+          { target: container }
+        );
+
+        const controls2 = scroll(
+          animate(".progress", { scaleX: [0, 1] }),
+          { target: container }
+        );
+
+        cleanupRef.current = () => {
+          if (typeof controls1 === "object" && "stop" in controls1) {
+            (controls1 as { stop: () => void }).stop();
+          }
+          if (typeof controls2 === "object" && "stop" in controls2) {
+            (controls2 as { stop: () => void }).stop();
+          }
+        };
+      });
+    });
   }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // 等所有图片加载完成后再计算宽度（不同纵横比图片宽度不同）
     const images = container.querySelectorAll("img");
     let loadedCount = 0;
-    let cleanup: (() => void) | undefined;
 
     const tryInit = () => {
       loadedCount++;
       if (loadedCount >= images.length) {
-        cleanup = initScroll();
+        initScroll();
       }
     };
 
@@ -75,13 +95,13 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
       }
     });
 
-    // 兜底：如果没有图片也初始化
     if (images.length === 0) {
-      cleanup = initScroll();
+      initScroll();
     }
 
     return () => {
-      cleanup?.();
+      cleanupRef.current?.();
+      cleanupRef.current = null;
     };
   }, [items.length, initScroll]);
 
@@ -95,7 +115,11 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
         <p className="text-white/40 text-sm mt-2">横向滚动浏览</p>
       </div>
 
-      <section ref={containerRef} className="img-group-container">
+      <section
+        ref={containerRef}
+        className="img-group-container"
+        style={{ height: `${containerHeight}vh` }}
+      >
         <div>
           <ul className="img-group">
             {items.map((item, i) => (
