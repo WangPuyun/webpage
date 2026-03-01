@@ -1,54 +1,151 @@
 /* ScrollGallery.css */
+
+/* ── 滚动容器 ── */
 .img-group-container {
-    height: 250vh;          /* 提供垂直滚动空间，驱动动画 */
-    position: relative;
+  height: 200vh;
+  position: relative;
+}
+
+.img-group-container > div {
+  position: sticky;
+  top: 15vh;
+  overflow: hidden;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+/* ── 图片列表 ── */
+.img-group {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0 4vw;
+  gap: 1.5rem;
+}
+
+/* ── 单张卡片 ── */
+.img-container {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 28vw;
+  min-width: 320px;
+  max-width: 520px;
+  position: relative;
+}
+
+/* 图片外层 glass 卡片 */
+.img-container .img-wrapper {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.img-container:hover .img-wrapper {
+  border-color: rgba(0, 255, 217, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 255, 217, 0.06);
+}
+
+/* 图片本身 */
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  transition: transform 0.5s ease;
+}
+
+.img-container:hover img {
+  transform: scale(1.03);
+}
+
+/* 标签 */
+.img-container h3 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+/* ── 进度条 ── */
+.gallery-progress-track {
+  width: 100%;
+  max-width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.progress {
+  position: static;
+  height: 100%;
+  background: linear-gradient(90deg, #00FFD9, #a855f7);
+  border-radius: 1px;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ── 响应式 ── */
+
+/* 平板 */
+@media (max-width: 1024px) {
+  .img-group-container {
+    height: 180vh;
   }
-  
-  .img-group-container > div {
-    position: sticky;        /* 固定在视口顶部 */
-    top: 20vh;
-    overflow: hidden;        /* 裁剪水平溢出 */
-    height: 70vh;
-  }
-  
-  .img-group {
-    display: flex;           /* 图片水平排列 */
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
+
   .img-container {
-    display: flex;
-    width: 22vw;             
-    height: 70vh;
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    width: 36vw;
+    min-width: 280px;
   }
-  
-  .img-container img {
-    width: 500px;
-    height: auto;
+
+  .img-group {
+    gap: 1.25rem;
+  }
+}
+
+/* 手机 */
+@media (max-width: 640px) {
+  .img-group-container {
+    height: 160vh;
+  }
+
+  .img-group-container > div {
+    top: 10vh;
+    height: 60vh;
+  }
+
+  .img-container {
+    width: 72vw;
+    min-width: 240px;
+    max-width: 340px;
+  }
+
+  .img-group {
+    gap: 1rem;
+    padding: 0 5vw;
+  }
+
+  .img-container .img-wrapper {
     border-radius: 12px;
   }
-  
+
+  .img-container img {
+    border-radius: 12px;
+  }
+
   .img-container h3 {
-    font-size: 48px;
-    font-weight: 700;
-    position: relative;
-    bottom: 30px;
+    font-size: 0.75rem;
   }
-  
-  /* 进度条 */
-  .progress {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: #00FFD9;
-    transform-origin: left;
-    transform: scaleX(0);
-  }
+}

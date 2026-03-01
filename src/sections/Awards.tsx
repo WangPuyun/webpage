@@ -204,8 +204,8 @@ export default function Awards() {
             </div>
           ))}
         </div>
-        {/* Certificates */}
-        <div>
+        {/* Certificates Gallery */}
+        <div className="mt-8">
           <ScrollGallery items={galleryItems} />
         </div>
         
