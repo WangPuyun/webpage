@@ -58,30 +58,60 @@ const papers: Paper[] = [
     year: '2025',
     abstract:
       'This paper propose an end-to-end framework that jointly performs underwater polarization descattering and SfP normal estimation by coupling restoration with geometry learning. On MuS-Polar3D, it achieves 15.12° mean angular error and robust performance under varying scattering.',
-    link: 'https://example.com/paper1',
+    // link: 'https://example.com/paper1',
     type: 'paper',
   },
   {
-    title: '仿生视觉信息处理在机器人导航中的应用',
-    authors: '王朴匀, 等',
-    journal: '机器人',
-    year: '2024',
+    title: 'Structure-Aware Consistency Priors for Shape from Polarization in Complex Media',
+    authors: 'Kaimin Yu, Puyun Wang, Huayang He, Xianyu Wu',
+    journal: 'International Conference on Machine Learning (CCF-A，投稿中）',
+    year: '2025',
     abstract:
-      '受生物视觉系统启发，设计了一种仿生视觉信息处理框架，应用于机器人自主导航任务。该方法能够有效处理复杂环境下的视觉信息，提高导航精度。',
-    link: 'https://example.com/paper2',
+      'This paper propose IceSfP, a dual-branch network that integrates structure-aware polarization priors with raw features via cross-modal attention for surface normal estimation in ice. It achieves 16.01° MAE, outperforming existing methods.',
+    // link: 'https://example.com/paper1',
     type: 'paper',
   },
+  {
+    title: 'Recent Advances in Polarization-Based 3D Imaging: From Physics Models to Neural Implicit Representations',
+    authors: 'Kaimin Yu, Puyun Wang, Fei Dong, Xu Li, Xianyu Wu, FengHuang',
+    journal: 'Computational Visual Media (二区，IF=7.5，Major Revision）',
+    year: '2025',
+    abstract:
+      'This survey reviews polarization-based 3D imaging, focusing on data-driven and neural implicit representation methods alongside physics-based approaches. It summarizes datasets, metrics, challenges, and future directions including generalization, system design, and deployment.',
+    // link: 'https://example.com/paper1',
+    type: 'paper',
+  },
+  {
+    title: 'A cross-modality feature fusion framework for low-light image enhancement',
+    authors: 'Puyun Wang, Xianyu Wu, Jiacai Lin, FengHuang',
+    journal: 'Applied Optics and Photonics China 2025 (AOPC2025), 2025, Beijing, China',
+    year: '2025',
+    abstract:
+      'We propose a fusion-driven framework that enhances low-light images by integrating RGB and LWIR modalities through feature decomposition and GAN-based fusion. The method improves brightness, contrast, and detail, outperforming existing approaches across SSIM, PSNR, and LPIPS.',
+    link: 'https://doi.org/10.1117/12.3078191',
+    type: 'paper',
+  },
+  // {
+  //   title: '仿生视觉信息处理在机器人导航中的应用',
+  //   authors: '王朴匀, 等',
+  //   journal: '机器人',
+  //   year: '2024',
+  //   abstract:
+  //     '受生物视觉系统启发，设计了一种仿生视觉信息处理框架，应用于机器人自主导航任务。该方法能够有效处理复杂环境下的视觉信息，提高导航精度。',
+  //   link: 'https://example.com/paper2',
+  //   type: 'paper',
+  // },
 ];
 
 const patents: Patent[] = [
   {
-    title: '一种基于神经网络的智能视觉检测系统',
-    inventors: '王朴匀, 等',
-    number: 'CN2024XXXXXXXX',
-    date: '2024年',
+    title: '一种应用于平稳爬楼的送餐小车',
+    inventors: '朱兆聚,王朴匀,黄海涛,曹泰源,陈栋,苏晨烨',
+    number: 'CN116923583A',
+    date: '2023',
     abstract:
-      '本发明公开了一种基于神经网络的智能视觉检测系统，能够实现高精度的目标检测和识别，广泛应用于工业检测、安防监控等领域。',
-    link: 'https://example.com/patent1',
+      '本发明公开一种平稳爬楼送餐小车，包括主车架、两侧麦克纳姆轮及由升降机构驱动的前后分节车体，可承载大重量餐盒，实现跨楼层稳定送餐。',
+    link: 'https://pss-system.cponline.cnipa.gov.cn/documents/detail?prevPageTit=changgui',
     type: 'patent',
   },
 ];
@@ -233,15 +263,17 @@ export default function Research() {
                       <span className="text-sm">代码</span>
                     </a>
                   )}
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-neon-green/10 border border-neon-green/30 text-neon-green hover:bg-neon-green/20 transition-all"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    <span className="text-sm">查看</span>
-                  </a>
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-neon-green/10 border border-neon-green/30 text-neon-green hover:bg-neon-green/20 transition-all"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span className="text-sm">查看</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
