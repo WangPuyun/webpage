@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Trophy, Medal, Award, Star, HeartHandshake, Lightbulb } from 'lucide-react';
+import { Medal, Award, Star, HeartHandshake, Lightbulb } from 'lucide-react';
 import ScrollGallery from "./ScrollGallery";
 import "./ScrollGallery.css";
 import { withBase } from "@/utils/asset";

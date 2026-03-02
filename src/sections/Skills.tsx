@@ -54,6 +54,7 @@ const skills = [
     icon: Microchip,
     description: '嵌入式开发',
     color: 'from-neon-green to-emerald-500',
+    videos: [withBase("/videos/object_tracking.mp4")],
   },
   {
     name: 'PyCharm',
