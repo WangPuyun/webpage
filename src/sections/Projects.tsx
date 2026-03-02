@@ -53,6 +53,7 @@ const projects = [
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activeMedia, setActiveMedia] = useState<Record<number, number>>({});
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -126,23 +127,92 @@ export default function Projects() {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Image placeholder area */}
+              {/* Media area */}
               <div className="relative h-48 overflow-hidden">
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20 group-hover:opacity-30 transition-opacity`}
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <project.icon
-                      className={`w-16 h-16 mx-auto mb-2 bg-gradient-to-br ${project.color} bg-clip-text`}
-                      style={{
-                        color: 'transparent',
-                        backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
-                      }}
-                    />
-                    <p className="text-white/30 text-sm">项目图片</p>
-                  </div>
-                </div>
+                {(() => {
+                  // Combine all media items: videos first, then images
+                  const mediaItems: { type: 'video' | 'image'; src: string }[] = [
+                    ...(project.videos || []).map((v) => ({ type: 'video' as const, src: v })),
+                    ...(project.images || []).map((img) => ({ type: 'image' as const, src: img })),
+                  ];
+                  const currentIndex = activeMedia[index] || 0;
+                  const currentItem = mediaItems[currentIndex];
+                  const hasMedia = mediaItems.length > 0 && currentItem &&
+                    !currentItem.src.includes('project'); // skip placeholder strings like 'project2-1'
+
+                  if (hasMedia && currentItem.type === 'video') {
+                    return (
+                      <video
+                        className="absolute inset-0 w-full h-full object-cover"
+                        src={currentItem.src}
+                        muted
+                        loop
+                        playsInline
+                        autoPlay={hoveredIndex === index}
+                        onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                        onMouseLeave={(e) => (e.target as HTMLVideoElement).pause()}
+                      />
+                    );
+                  } else if (hasMedia && currentItem.type === 'image') {
+                    return (
+                      <img
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        src={currentItem.src}
+                        alt={project.title}
+                        loading="lazy"
+                      />
+                    );
+                  } else {
+                    // Fallback: icon placeholder
+                    return (
+                      <>
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20 group-hover:opacity-30 transition-opacity`}
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center">
+                            <project.icon
+                              className={`w-16 h-16 mx-auto mb-2 bg-gradient-to-br ${project.color} bg-clip-text`}
+                              style={{
+                                color: 'transparent',
+                                backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
+                              }}
+                            />
+                            <p className="text-white/30 text-sm">项目图片</p>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  }
+                })()}
+
+                {/* Media carousel dots (when multiple valid media) */}
+                {(() => {
+                  const mediaItems = [
+                    ...(project.videos || []),
+                    ...(project.images || []),
+                  ].filter((src) => !src.includes('project'));
+                  if (mediaItems.length <= 1) return null;
+                  const currentIndex = activeMedia[index] || 0;
+                  return (
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+                      {mediaItems.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveMedia((prev) => ({ ...prev, [index]: i }));
+                          }}
+                          className={`w-2 h-2 rounded-full transition-all ${
+                            i === currentIndex
+                              ? 'bg-white w-4'
+                              : 'bg-white/40 hover:bg-white/70'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  );
+                })()}
 
                 {/* Overlay on hover */}
                 <div
@@ -152,7 +222,7 @@ export default function Projects() {
                 />
 
                 {/* Category badge */}
-                <div className="absolute top-4 left-4">
+                <div className="absolute top-4 left-4 z-10">
                   <span className="px-3 py-1 text-xs font-medium rounded-full bg-black/50 backdrop-blur-sm text-white/80 border border-white/10">
                     {project.category}
                   </span>
