@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, Code2, Cpu, Target, Briefcase } from 'lucide-react';
+import { withBase } from "@/utils/asset";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,8 @@ const projects = [
     technologies: ['Python', 'PyTorch', 'OpenCV', 'CUDA'],
     icon: Target,
     color: 'from-neon-green to-emerald-500',
-    images: ['project1-1', 'project1-2'],
+    images: [withBase("/images/firework.jpg")],
+    videos: [withBase("/videos/object_tracking.mp4")],
   },
   {
     title: '工业机器人控制系统',
@@ -111,7 +113,7 @@ export default function Projects() {
             项目<span className="text-gradient">经历</span>
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            竞赛、课程设计、毕业设计与外包项目
+            工程项目、竞赛、课程设计与毕业设计
           </p>
         </div>
 
