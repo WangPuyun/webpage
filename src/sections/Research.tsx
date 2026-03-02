@@ -11,7 +11,7 @@ interface Paper {
   journal: string;
   year: string;
   abstract: string;
-  link: string;
+  link?: string;
   github?: string;
   type: 'paper';
 }
@@ -30,14 +30,35 @@ type ResearchItem = Paper | Patent;
 
 const papers: Paper[] = [
   {
-    title: '基于深度学习的计算成像方法研究',
-    authors: '王朴匀, 等',
-    journal: '光学学报',
+    title: 'UD-SfPNet: AnUnderwaterDescattering Shape-from-Polarization Network for 3D Normal Reconstruction',
+    authors: 'Puyun Wang, Kaimin Yu, Huayang He, Feng Huang, Xianyu Wu, Yating Chen',
+    journal: 'Information Fusion (一区Top，IF=15.7，With Editor）',
+    year: '2026',
+    abstract:
+      'UD-SfPNet jointly performs polarization-based descattering and surface normal estimation in a unified framework with color embedding and detail enhancement. It achieves state-of-the-art accuracy (15.12° mean error) on MuS-Polar3D dataset.',
+    // link: 'https://example.com/paper1',
+    github: 'https://github.com/WangPuyun/UD-SfPNet.git',
+    type: 'paper',
+  },
+  {
+    title: 'MuS-Polar3D: A Benchmark Dataset for Computational Polarimetric 3D Imaging under Multi-Scattering Conditions',
+    authors: 'Puyun Wang, Kaimin Yu, Huayang He, Xianyu Wu',
+    journal: 'IEEE Transactions on Image Processing (一区Top，IF=13.7，Under Review）',
     year: '2025',
     abstract:
-      '提出了一种新型的深度学习计算成像方法，通过神经网络优化成像过程，显著提升了成像质量和速度。实验结果表明，该方法在多种场景下均优于传统方法。',
+      'MuS-Polar3D is a benchmark for polarization-based underwater 3D imaging, featuring 42 objects under controlled scattering and multi-view conditions with precise ground truth. It enables fair evaluation across tasks, achieving 15.49° best mean angular error.',
+    link: 'https://arxiv.org/abs/2512.21513',
+    github: 'https://github.com/WangPuyun/MuS-Polar3D.git',
+    type: 'paper',
+  },
+  {
+    title: 'A Structured Learning Framework for Underwater Polarization-Based 3D Reconstruction',
+    authors: 'Puyun Wang, Kaimin Yu, Huayang He, Xianyu Wu',
+    journal: 'International Conference on Machine Learning (CCF-A，投稿中）',
+    year: '2025',
+    abstract:
+      'This paper propose an end-to-end framework that jointly performs underwater polarization descattering and SfP normal estimation by coupling restoration with geometry learning. On MuS-Polar3D, it achieves 15.12° mean angular error and robust performance under varying scattering.',
     link: 'https://example.com/paper1',
-    github: 'https://github.com/example/repo1',
     type: 'paper',
   },
   {

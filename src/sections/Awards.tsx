@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Medal, Award, Star } from 'lucide-react';
+import { Trophy, Medal, Award, Star, HeartHandshake, Lightbulb } from 'lucide-react';
 import ScrollGallery from "./ScrollGallery";
 import "./ScrollGallery.css";
 import { withBase } from "@/utils/asset";
@@ -20,38 +20,49 @@ const awards = [
   {
     title: '福州大学研究生中期奖学金一等奖',
     level: '校级',
-    period: '2025年',
+    period: '2026年',
     description: '研究生中期考核优秀，获得一等奖学金',
     icon: Medal,
     color: 'from-neon-green to-emerald-500',
   },
   {
+    title: '福州大学本科生校级综合奖学金三等奖',
+    level: '校级',
+    period: '2023',
+    description: '本科阶段综合表现优秀',
+    icon: Star,
+    color: 'from-neon-purple to-violet-500',
+  },
+  {
     title: '福建省机械设计创新大赛二等奖',
     level: '省级',
-    period: '本科期间',
+    period: '2022',
     description: '机械设计创新大赛省级二等奖',
     icon: Award,
     color: 'from-neon-cyan to-blue-500',
   },
   {
-    title: '福州大学本科生校级综合奖学金三等奖',
+    title: '全国大学生机械创新设计大赛福州大学校赛',
     level: '校级',
-    period: '本科期间',
-    description: '本科阶段综合表现优秀',
-    icon: Star,
-    color: 'from-neon-purple to-violet-500',
+    period: '2021',
+    description: '机械创新设计大赛校赛二等奖',
+    icon: Lightbulb,
+    color: 'from-teal-400 via-emerald-500 to-cyan-600',
+  },
+  {
+    title: '福州大学20-21学年精神文明建设单项奖学金',
+    level: '院级',
+    period: '2020-2021学年',
+    description: '表彰精神文明建设与志愿服务等综合表现',
+    icon: HeartHandshake,
+    color: 'from-rose-400 via-pink-500 to-fuchsia-600',
   },
 ];
 
 const galleryItems = [
-  { src: withBase("/images/cert-1.jpg"), label: "" },
+  { src: withBase("/images/cert-3.png"), label: "" },
   { src: withBase("/images/cert-2.png"), label: "" },
-  { src: withBase("/images/cert-2.png"), label: "" },
-  { src: withBase("/images/cert-2.png"), label: "" },
-  { src: withBase("/images/cert-2.png"), label: "" },
-  { src: withBase("/images/cert-1.jpg"), label: "" },
-  { src: withBase("/images/cert-1.jpg"), label: "" },
-  { src: withBase("/images/cert-1.jpg"), label: "" },
+  { src: withBase("/images/cert-1.png"), label: "" },
 ];
 
 
@@ -188,7 +199,7 @@ export default function Awards() {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { value: '4+', label: '获奖总数' },
+            { value: '5+', label: '获奖总数' },
             { value: '1', label: '国家级' },
             { value: '1', label: '省级' },
             { value: '2', label: '校级' },
