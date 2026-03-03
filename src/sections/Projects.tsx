@@ -8,10 +8,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: '目标跟踪系统',
+    title: '基于YOLO的多目标自适应几何中心实时跟踪云台伺服系统',
     category: '硕士项目',
     description:
-      '基于深度学习的目标跟踪系统，实现了实时多目标跟踪功能。采用Siamese网络架构，结合注意力机制，在多个公开数据集上取得了优异的性能。',
+      '本系统融合YOLO算法与高精度二轴云台，实现多目标“群体感知”视觉追踪：单目标时锁定画面中心；多目标时计算全体目标的虚拟中心点并驱动云台平滑跟随，使群体始终处于最佳视野。其亮点在于检测算法与伺服控制深度融合，为全视角智能监控提供新方案。',
     technologies: ['Python', 'PyTorch', 'OpenCV', 'CUDA'],
     icon: Target,
     color: 'from-neon-green to-emerald-500',
