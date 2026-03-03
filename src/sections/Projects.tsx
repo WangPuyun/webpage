@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, Code2, Cpu, Target, Briefcase } from 'lucide-react';
+import { Code2, Cpu, Target, Briefcase } from 'lucide-react';
 import { withBase } from "@/utils/asset";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +15,6 @@ const projects = [
     technologies: ['Python', 'PyTorch', 'OpenCV', 'CUDA'],
     icon: Target,
     color: 'from-neon-green to-emerald-500',
-    images: [withBase("/images/firework.jpg")],
     videos: [withBase("/videos/object_tracking.mp4")],
   },
   {
@@ -128,7 +127,7 @@ export default function Projects() {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Media area */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative aspect-video overflow-hidden">
                 {(() => {
                   // Combine all media items: videos first, then images
                   const mediaItems: { type: 'video' | 'image'; src: string }[] = [
@@ -216,7 +215,7 @@ export default function Projects() {
 
                 {/* Overlay on hover */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/80 to-transparent transition-opacity duration-300 ${
+                  className={`absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/80 to-transparent transition-opacity duration-300 pointer-events-none ${
                     hoveredIndex === index ? 'opacity-100' : 'opacity-0'
                   }`}
                 />
@@ -251,11 +250,6 @@ export default function Projects() {
                   ))}
                 </div>
 
-                {/* Action */}
-                <button className="flex items-center gap-2 text-neon-green text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span>查看详情</span>
-                  <ExternalLink className="w-4 h-4" />
-                </button>
               </div>
 
               {/* Glow effect */}
