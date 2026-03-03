@@ -224,12 +224,7 @@ export default function Projects() {
                   );
                 })()}
 
-                {/* Overlay on hover */}
-                <div
-                  className={`hidden md:block absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/80 to-transparent transition-opacity duration-300 pointer-events-none ${
-                    hoveredIndex === index ? 'opacity-100' : 'opacity-0'
-                  }`}
-                />
+
 
                 {/* Category badge */}
                 <div className="absolute top-4 left-4 z-10">
