@@ -51,8 +51,21 @@ const projects = [
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeMedia, setActiveMedia] = useState<Record<number, number>>({});
+
+  // Control video playback based on card hover state
+  useEffect(() => {
+    Object.entries(videoRefs.current).forEach(([key, video]) => {
+      if (!video) return;
+      if (hoveredIndex === Number(key)) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, [hoveredIndex]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -142,14 +155,12 @@ export default function Projects() {
                   if (hasMedia && currentItem.type === 'video') {
                     return (
                       <video
+                        ref={(el) => { videoRefs.current[index] = el; }}
                         className="absolute inset-0 w-full h-full object-cover"
                         src={currentItem.src}
                         muted
                         loop
                         playsInline
-                        autoPlay={hoveredIndex === index}
-                        onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
-                        onMouseLeave={(e) => (e.target as HTMLVideoElement).pause()}
                       />
                     );
                   } else if (hasMedia && currentItem.type === 'image') {
@@ -215,7 +226,7 @@ export default function Projects() {
 
                 {/* Overlay on hover */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/80 to-transparent transition-opacity duration-300 pointer-events-none ${
+                  className={`hidden md:block absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/80 to-transparent transition-opacity duration-300 pointer-events-none ${
                     hoveredIndex === index ? 'opacity-100' : 'opacity-0'
                   }`}
                 />
