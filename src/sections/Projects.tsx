@@ -28,11 +28,21 @@ const projects = [
     videos: [withBase("/videos/smart_desktop_pet.mp4")],
   },
   {
+    title: '基于多旋翼无人机机器视觉的水面浮标检测系统',
+    category: '本科毕业设计',
+    description:
+      '针对夜间低可见度场景，引入可见光-红外图像融合技术，集成TIF/TGFuse/SwinFusion三种算法，将融合图像作为YOLOv5s输入。相比纯可见光检测，融合后夜间mAP@0.5从72%提升至95.8%，漏检率降低60%，实现日夜连续稳定作业。',
+    technologies: ['PyQT', 'PyTorch', 'STM32'],
+    icon: Code2,
+    color: 'from-neon-purple to-violet-500',
+    videos: [withBase("/videos/graduation_design.mp4")],
+  },
+  {
     title: '融合BP神经网络的嵌入式火灾智能预警系统设计',
     category: '毕业设计辅导',
     description:
       '针对传统阈值式STM32报警系统难适应复杂工况的局限，提出智能算法架构：STM32采集环境数据，上位机基于BP神经网络对实时数据做火灾预测，验证集准确率97.25%、召回率99.3%、F1达0.9463，实现从"规则驱动"到"数据驱动"的火灾判别范式升级。',
-    technologies: ['PyQT', 'PyTorch', 'STM32'],
+    technologies: ['PyQT', 'BP神经网络', 'PyTorch', 'STM32'],
     icon: Code2,
     color: 'from-neon-purple to-violet-500',
     images: [withBase("/images/Intelligent_fire_alarm_system.png"),withBase("/images/Intelligent_fire_alarm_system_workflow.png"),withBase("/images/Intelligent_fire_alarm_system_effect.png")],
@@ -62,21 +72,42 @@ const projects = [
     category: '本科生科研训练计划',
     description:
       '主持设计三节式麦克纳姆轮配送车，基于SolidWorks/Adams完成两轮迭代的虚拟样机仿真与实体搭建；搭建并部署基于YOLOv5的门牌号识别模型，3000张样本训练后准确率达95%，经TensorRT加速推理耗时从50ms降至4ms。',
-    technologies: ['SolidWorks','Adams仿真', 'YOLO', 'SolidWorks'],
+    technologies: ['SolidWorks','Adams仿真', 'YOLO'],
     icon: Cpu,
     color: 'from-neon-cyan to-blue-500',
     images: [withBase("/images/餐车模型及其爆炸图.jpg"),withBase("/images/Adams仿真图.jpg"),withBase("/images/实体样机调试 图.jpg")],
   },
   {
-    title: '基于多旋翼无人机机器视觉的水面浮标检测系统',
-    category: '毕业设计',
+    title: 'Delta机器人',
+    category: '本科课设',
     description:
-      '针对夜间低可见度场景，引入可见光-红外图像融合技术，集成TIF/TGFuse/SwinFusion三种算法，将融合图像作为YOLOv5s输入。相比纯可见光检测，融合后夜间mAP@0.5从72%提升至95.8%，漏检率降低60%，实现日夜连续稳定作业。',
-    technologies: ['PyQT', 'PyTorch', 'STM32'],
-    icon: Code2,
-    color: 'from-neon-purple to-violet-500',
-    videos: [withBase("/videos/graduation_project.mp4")],
+      '',
+    technologies: ['SolidWorks','MATLAB仿真', '机器人运动空间解算'],
+    icon: Cpu,
+    color: 'from-neon-cyan to-blue-500',
+    images: [],
   },
+  {
+    title: '仿生多足虫',
+    category: '机械设计创新大赛',
+    description:
+      '',
+    technologies: ['SolidWorks','arduino'],
+    icon: Cpu,
+    color: 'from-neon-cyan to-blue-500',
+    images: [],
+  },
+  {
+    title: '志愿者服务',
+    category: '',
+    description:
+      '',
+    technologies: [],
+    icon: Cpu,
+    color: 'from-neon-cyan to-blue-500',
+    images: [],
+  },
+
 ];
 
 export default function Projects() {
@@ -300,7 +331,7 @@ export default function Projects() {
         <div className="mt-16 glass rounded-2xl p-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { value: '4', label: '外包项目' },
+              { value: '10+', label: '项目经历' },
               { value: '3', label: '毕业设计' },
               { value: '2', label: '竞赛项目' },
               { value: '5+', label: '技术栈' },
