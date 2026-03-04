@@ -30,7 +30,7 @@ type ResearchItem = Paper | Patent;
 
 const papers: Paper[] = [
   {
-    title: 'UD-SfPNet: AnUnderwaterDescattering Shape-from-Polarization Network for 3D Normal Reconstruction',
+    title: 'UD-SfPNet: An Underwater Descattering Shape-from-Polarization Network for 3D Normal Reconstruction',
     authors: 'Puyun Wang, Kaimin Yu, Huayang He, Feng Huang, Xianyu Wu, Yating Chen',
     journal: 'Information Fusion (一区Top，IF=15.7，With Editor）',
     year: '2026',
