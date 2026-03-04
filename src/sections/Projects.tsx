@@ -47,6 +47,36 @@ const projects = [
     color: 'from-orange-400 to-red-500',
     videos: [withBase("/videos/Parts_picking_system.mp4")],
   },
+  {
+    title: '并联SCARA机器人运动控制系统设计（项目负责人）',
+    category: '本科课设',
+    description:
+      '负责基于STM32的下位机开发，实现五连杆并联SCARA的运动学逆解、梯形加减速粗插补与关节空间逐点比较精插补算法，支持G代码解析与多段直线/圆弧连续插补，并设计光电开关自动回零机制，完成整机绘图验证。课设成绩94分（满绩）',
+    technologies: ['STM32', '插补算法', '运动学编程', '步进电机控制', 'C#上位机开发'],
+    icon: Target,
+    color: 'from-neon-green to-emerald-500',
+    videos: [withBase("/videos/SCARA.mp4")],
+  },
+  {
+    title: '新冠疫情下智能配送餐车的设计与实现（项目负责人）',
+    category: '本科生科研训练计划',
+    description:
+      '主持设计三节式麦克纳姆轮配送车，基于SolidWorks/Adams完成两轮迭代的虚拟样机仿真与实体搭建；搭建并部署基于YOLOv5的门牌号识别模型，3000张样本训练后准确率达95%，经TensorRT加速推理耗时从50ms降至4ms。',
+    technologies: ['SolidWorks','Adams仿真', 'YOLO', 'SolidWorks'],
+    icon: Cpu,
+    color: 'from-neon-cyan to-blue-500',
+    images: [withBase("/images/餐车模型及其爆炸图.jpg"),withBase("/images/Adams仿真图.jpg"),withBase("/images/实体样机调试 图.jpg")],
+  },
+  {
+    title: '基于多旋翼无人机机器视觉的水面浮标检测系统',
+    category: '毕业设计',
+    description:
+      '针对夜间低可见度场景，引入可见光-红外图像融合技术，集成TIF/TGFuse/SwinFusion三种算法，将融合图像作为YOLOv5s输入。相比纯可见光检测，融合后夜间mAP@0.5从72%提升至95.8%，漏检率降低60%，实现日夜连续稳定作业。',
+    technologies: ['PyQT', 'PyTorch', 'STM32'],
+    icon: Code2,
+    color: 'from-neon-purple to-violet-500',
+    videos: [withBase("/videos/graduation_project.mp4")],
+  },
 ];
 
 export default function Projects() {
