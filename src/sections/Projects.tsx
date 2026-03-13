@@ -78,24 +78,24 @@ const projects = [
     images: [withBase("/images/餐车模型及其爆炸图.jpg"),withBase("/images/Adams仿真图.jpg"),withBase("/images/实体样机调试 图.jpg")],
   },
   {
-    title: 'Delta机器人',
+    title: '3R副并联Delta机器人的概念设计与样机搭建',
     category: '本科课设',
     description:
-      '',
+      '基于 MATLAB 编写3R型Delta机器人运动学正逆解程序，完成工作空间验证与关节尺寸设计；通过引入关节约束消除逆解多解并计算关节位移；利用旋量理论推导空间自由度并与Kutzbach-Grübler公式对比验证。课设成绩 97分，成果入选学院展览。',
     technologies: ['SolidWorks','MATLAB仿真', '机器人运动空间解算'],
     icon: Cpu,
     color: 'from-neon-cyan to-blue-500',
-    images: [],
+    images: [withBase("/images/delta.gif"),withBase("/images/delta_structure.gif"),withBase("/images/delta_GroupPhoto.jpg")],
   },
   {
     title: '仿生多足虫',
     category: '机械设计创新大赛',
     description:
-      '',
+      '基于仿生学设计 “舵机+摆动臂” 仿生虫机器人，模拟虫类上下蠕动与左右摆动实现复杂地形运动；集成 摄像头与红外传感器 实现环境信息采集与地形适应，完成整机结构设计与搭建，项目获 省赛二等奖。',
     technologies: ['SolidWorks','arduino'],
     icon: Cpu,
     color: 'from-neon-cyan to-blue-500',
-    images: [],
+    videos: [withBase("/videos/worm.mp4")],
   },
   {
     title: '志愿者服务',
@@ -105,7 +105,7 @@ const projects = [
     technologies: [],
     icon: Cpu,
     color: 'from-neon-cyan to-blue-500',
-    images: [],
+    images: [withBase("/images/volunteer1.jpg"),withBase("/images/volunteer2.jpg")],
   },
 
 ];
