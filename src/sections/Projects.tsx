@@ -15,7 +15,7 @@ const projects = [
     technologies: ['PyTorch', 'OpenCV', 'CUDA', 'STM32'],
     icon: Target,
     color: 'from-neon-green to-emerald-500',
-    videos: [withBase("/videos/object_tracking.mp4")],
+    images: [withBase("/images/object_tracking.gif")],
   },
   {
     title: 'STM32智能桌面宠物',
@@ -25,7 +25,7 @@ const projects = [
     technologies: ['STM32','C语言', 'ROS', 'SolidWorks'],
     icon: Cpu,
     color: 'from-neon-cyan to-blue-500',
-    videos: [withBase("/videos/smart_desktop_pet.mp4")],
+    images: [withBase("/images/smart_desktop_pet.gif")],
   },
   {
     title: '基于多旋翼无人机机器视觉的水面浮标检测系统',
@@ -99,9 +99,9 @@ const projects = [
   },
   {
     title: '志愿者服务',
-    category: '',
+    category: '学生活动',
     description:
-      '',
+      '在本科及硕士阶段积极参与志愿服务，主动投身校园及社会公益实践，多次参加校园活动保障、社区服务及公益宣传等工作。服务过程中认真负责，积极配合团队完成任务，展现出良好的社会责任感和奉献精神。',
     technologies: [],
     icon: Cpu,
     color: 'from-neon-cyan to-blue-500',
