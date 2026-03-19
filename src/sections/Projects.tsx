@@ -113,16 +113,15 @@ const projects = [
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
+  const videoPostersRef = useRef<Record<string, string>>({});
+  const posterWarmupRef = useRef<Record<string, boolean>>({});
+  const isTouchDeviceRef = useRef(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeMedia, setActiveMedia] = useState<Record<number, number>>({});
   const [videoPosters, setVideoPosters] = useState<Record<string, string>>({});
 
-  const handleVideoLoadedData = (
-    event: SyntheticEvent<HTMLVideoElement>,
-    src: string
-  ) => {
-    if (videoPosters[src]) return;
-    const video = event.currentTarget;
+  const captureVideoPoster = (video: HTMLVideoElement, src: string) => {
+    if (videoPostersRef.current[src]) return;
     if (!video.videoWidth || !video.videoHeight) return;
 
     const canvas = document.createElement('canvas');
@@ -141,6 +140,89 @@ export default function Projects() {
     }
   };
 
+  const warmupVideoPoster = async (video: HTMLVideoElement, src: string) => {
+    if (!isTouchDeviceRef.current) return;
+    if (videoPostersRef.current[src] || posterWarmupRef.current[src]) return;
+    posterWarmupRef.current[src] = true;
+
+    try {
+      video.muted = true;
+      video.playsInline = true;
+      await video.play().catch(() => {});
+      video.pause();
+
+      if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
+        await new Promise<void>((resolve) => {
+          let finished = false;
+          const done = () => {
+            if (finished) return;
+            finished = true;
+            resolve();
+          };
+          const timer = window.setTimeout(done, 1500);
+          video.addEventListener(
+            'loadeddata',
+            () => {
+              window.clearTimeout(timer);
+              done();
+            },
+            { once: true }
+          );
+        });
+      }
+
+      if (
+        video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA &&
+        video.duration > 0 &&
+        video.currentTime < 0.04
+      ) {
+        await new Promise<void>((resolve) => {
+          let finished = false;
+          const done = () => {
+            if (finished) return;
+            finished = true;
+            resolve();
+          };
+          const timer = window.setTimeout(done, 900);
+          video.addEventListener(
+            'seeked',
+            () => {
+              window.clearTimeout(timer);
+              done();
+            },
+            { once: true }
+          );
+          try {
+            video.currentTime = Math.min(0.06, Math.max(video.duration - 0.01, 0));
+          } catch {
+            window.clearTimeout(timer);
+            done();
+          }
+        });
+      }
+
+      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        captureVideoPoster(video, src);
+      }
+    } finally {
+      video.pause();
+      try {
+        video.currentTime = 0;
+      } catch {
+        // Ignore browsers that block currentTime reset.
+      }
+    }
+  };
+
+  const handleVideoLoadedData = (
+    event: SyntheticEvent<HTMLVideoElement>,
+    src: string
+  ) => {
+    const video = event.currentTarget;
+    captureVideoPoster(video, src);
+    void warmupVideoPoster(video, src);
+  };
+
   // Control video playback based on card hover state
   useEffect(() => {
     Object.entries(videoRefs.current).forEach(([key, video]) => {
@@ -152,6 +234,16 @@ export default function Projects() {
       }
     });
   }, [hoveredIndex]);
+
+  useEffect(() => {
+    videoPostersRef.current = videoPosters;
+  }, [videoPosters]);
+
+  useEffect(() => {
+    isTouchDeviceRef.current =
+      window.matchMedia('(hover: none)').matches ||
+      window.matchMedia('(pointer: coarse)').matches;
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -249,7 +341,12 @@ export default function Projects() {
                           />
                         )}
                         <video
-                          ref={(el) => { videoRefs.current[index] = el; }}
+                          ref={(el) => {
+                            videoRefs.current[index] = el;
+                            if (el) {
+                              void warmupVideoPoster(el, currentItem.src);
+                            }
+                          }}
                           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
                             shouldShowVideo ? 'opacity-100' : 'opacity-0'
                           }`}
@@ -259,6 +356,9 @@ export default function Projects() {
                           muted
                           loop
                           playsInline
+                          onLoadedMetadata={(event) => {
+                            void warmupVideoPoster(event.currentTarget, currentItem.src);
+                          }}
                           onLoadedData={(event) => handleVideoLoadedData(event, currentItem.src)}
                         />
                       </>
