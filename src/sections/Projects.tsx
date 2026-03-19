@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { type SyntheticEvent, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code2, Cpu, Target, Briefcase } from 'lucide-react';
@@ -115,6 +115,31 @@ export default function Projects() {
   const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeMedia, setActiveMedia] = useState<Record<number, number>>({});
+  const [videoPosters, setVideoPosters] = useState<Record<string, string>>({});
+
+  const handleVideoLoadedData = (
+    event: SyntheticEvent<HTMLVideoElement>,
+    src: string
+  ) => {
+    if (videoPosters[src]) return;
+    const video = event.currentTarget;
+    if (!video.videoWidth || !video.videoHeight) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    try {
+      const poster = canvas.toDataURL('image/jpeg', 0.82);
+      setVideoPosters((prev) => (prev[src] ? prev : { ...prev, [src]: poster }));
+    } catch {
+      // Ignore poster extraction failures and keep gradient fallback.
+    }
+  };
 
   // Control video playback based on card hover state
   useEffect(() => {
@@ -214,15 +239,29 @@ export default function Projects() {
                     !currentItem.src.includes('project'); // skip placeholder strings like 'project2-1'
 
                   if (hasMedia && currentItem.type === 'video') {
+                    const posterSrc = videoPosters[currentItem.src];
+                    const shouldShowVideo = Boolean(posterSrc) || hoveredIndex === index;
                     return (
-                      <video
-                        ref={(el) => { videoRefs.current[index] = el; }}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        src={currentItem.src}
-                        muted
-                        loop
-                        playsInline
-                      />
+                      <>
+                        {!posterSrc && (
+                          <div
+                            className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-25`}
+                          />
+                        )}
+                        <video
+                          ref={(el) => { videoRefs.current[index] = el; }}
+                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                            shouldShowVideo ? 'opacity-100' : 'opacity-0'
+                          }`}
+                          src={currentItem.src}
+                          poster={posterSrc}
+                          preload="auto"
+                          muted
+                          loop
+                          playsInline
+                          onLoadedData={(event) => handleVideoLoadedData(event, currentItem.src)}
+                        />
+                      </>
                     );
                   } else if (hasMedia && currentItem.type === 'image') {
                     return (
