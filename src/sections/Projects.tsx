@@ -7,6 +7,26 @@ import { withBase } from "@/utils/asset";
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
+    {
+    title: '第六届世界光子大会',
+    category: '学术会议',
+    description:
+      '参与“2025第六届世界光子大会（World Photonics Conference 2025）”，通过大会报告与分会场学术交流，深入了解光学与光子学领域的最新研究成果及发展趋势，并在会议上发表学术论文1篇，介绍相关研究工作，与参会专家学者进行了深入交流。',
+    technologies: ['参会地点：北京 国家会议中心', '发表EI论文1篇'],
+    icon: Target,
+    color: 'from-neon-green to-emerald-500',
+    images: [withBase("/images/AOPC1.jpg"),withBase("/images/AOPC2.jpg")],
+  },
+    {
+    title: '第十六届设计与制造前沿国际会议',
+    category: '学术会议',
+    description:
+      '参与“2024第十六届设计与制造前沿国际会议（ICFDM 2024）”，系统学习了设计与制造领域的最新研究进展，聆听多位国内外专家学者的学术报告，了解先进制造技术、智能设计方法等前沿研究方向，并与参会学者进行交流讨论，拓展了学术视野。',
+    technologies: ['参会地点：厦门 国际会议中心'],
+    icon: Target,
+    color: 'from-neon-green to-emerald-500',
+    images: [withBase("/images/Amoy Conference_1.jpg"),withBase("/images/Amoy Conference_2.jpg")],
+  },
   {
     title: '基于YOLO的多目标自适应几何中心实时跟踪云台伺服系统',
     category: '硕士项目',
