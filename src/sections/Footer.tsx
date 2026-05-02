@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Mail, MapPin, Heart } from 'lucide-react';
 import { withBase } from '@/utils/asset';
+import type { Language } from '@/types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,9 +37,14 @@ const socialLinks = [
   },
 ];
 
-export default function Footer() {
+interface FooterProps {
+  language: Language;
+}
+
+export default function Footer({ language }: FooterProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [showWechatModal, setShowWechatModal] = useState(false);
+  const isEnglish = language === 'en';
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -77,7 +83,7 @@ export default function Footer() {
               className="whitespace-nowrap text-[20vw] font-bold text-white leading-none"
               style={{ transform: `translateX(-${i * 10}%)` }}
             >
-              王朴匀 王朴匀 王朴匀
+              {isEnglish ? 'Puyun Wang Puyun Wang Puyun Wang' : '王朴匀 王朴匀 王朴匀'}
             </div>
           ))}
         </div>
@@ -91,10 +97,20 @@ export default function Footer() {
           {/* Main content */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              让我们<span className="text-gradient">联系</span>
+              {isEnglish ? (
+                <>
+                  Let&apos;s <span className="text-gradient">Connect</span>
+                </>
+              ) : (
+                <>
+                  让我们<span className="text-gradient">联系</span>
+                </>
+              )}
             </h2>
             <p className="text-white/50 text-lg max-w-xl mx-auto mb-8">
-              如果您对我的研究或项目感兴趣，欢迎随时与我交流
+              {isEnglish
+                ? 'If you are interested in my research or projects, feel free to reach out.'
+                : '如果您对我的研究或项目感兴趣，欢迎随时与我交流'}
             </p>
 
             {/* Contact info */}
@@ -108,7 +124,7 @@ export default function Footer() {
               </a>
               <div className="flex items-center gap-3 px-6 py-3 glass rounded-full">
                 <MapPin className="w-5 h-5 text-neon-cyan" />
-                <span className="text-white/80">福建福州</span>
+                <span className="text-white/80">{isEnglish ? 'Fuzhou, Fujian' : '福建福州'}</span>
               </div>
             </div>
 
@@ -160,7 +176,7 @@ export default function Footer() {
           <div className="border-t border-white/10 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-white/40 text-sm">
-                © 2025 王朴匀. All rights reserved.
+                © 2025 {isEnglish ? 'Puyun Wang' : '王朴匀'}. All rights reserved.
               </p>
               <p className="text-white/40 text-sm flex items-center gap-1">
                 Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> in Fuzhou
@@ -198,15 +214,21 @@ export default function Footer() {
               </div>
             </div>
 
-            <h3 className="text-xl font-semibold text-white mb-2">微信联系我</h3>
-            <p className="text-white/50 text-sm mb-6">扫描下方二维码添加微信</p>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              {isEnglish ? 'Contact via WeChat' : '微信联系我'}
+            </h3>
+            <p className="text-white/50 text-sm mb-6">
+              {isEnglish ? 'Scan the QR code below to add me on WeChat' : '扫描下方二维码添加微信'}
+            </p>
 
             {/* QR Code */}
             <div className="bg-white rounded-xl p-4 inline-block mb-4">
               <img src={withBase("/images/QR_code.jpg")} alt="WeChat QR Code" className="w-48 h-48" />
             </div>
 
-            <p className="text-white/40 text-xs">截图保存，打开微信扫一扫</p>
+            <p className="text-white/40 text-xs">
+              {isEnglish ? 'Save screenshot and scan it in WeChat' : '截图保存，打开微信扫一扫'}
+            </p>
           </div>
         </div>
       )}

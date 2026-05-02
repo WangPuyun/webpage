@@ -3,14 +3,20 @@ import { ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
 import ThreeBackground from './ThreeBackground';
 import { withBase } from "@/utils/asset";
+import type { Language } from '@/types/language';
 
-export default function Hero() {
+interface HeroProps {
+  language: Language;
+}
+
+export default function Hero({ language }: HeroProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showWechatModal, setShowWechatModal] = useState(false);
+  const isEnglish = language === 'en';
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -88,6 +94,22 @@ export default function Hero() {
     }
   };
 
+  const copy = isEnglish
+    ? {
+        subtitle: 'AI Topics / Computer Vision Researcher',
+        description: 'Exploring the boundaries of intelligent vision and robotics',
+        wechatTitle: 'Contact via WeChat',
+        wechatDesc: 'Scan the QR code below to add me on WeChat',
+        wechatHint: 'Save screenshot and scan it in WeChat',
+      }
+    : {
+        subtitle: '人工智能课题 / 计算机视觉研究者',
+        description: '探索智能视觉与机器人技术的边界',
+        wechatTitle: '微信联系我',
+        wechatDesc: '扫描下方二维码添加微信',
+        wechatHint: '截图保存，打开微信扫一扫',
+      };
+
   return (
     <section
       ref={heroRef}
@@ -127,7 +149,7 @@ export default function Hero() {
             transition: 'transform 0.3s ease-out',
           }}
         >
-          <span className="text-gradient">王朴匀</span>
+          <span className="text-gradient">{isEnglish ? 'Puyun Wang' : '王朴匀'}</span>
         </h1>
 
         <div className="overflow-hidden">
@@ -135,7 +157,7 @@ export default function Hero() {
             ref={subtitleRef}
             className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light tracking-wider whitespace-nowrap mx-auto"
           >
-            人工智能课题 / 计算机视觉研究者
+            {copy.subtitle}
           </p>
         </div>
 
@@ -143,7 +165,7 @@ export default function Hero() {
           ref={descRef}
           className="mt-6 text-lg md:text-xl text-white/60 max-w-2xl mx-auto"
         >
-          探索智能视觉与机器人技术的边界
+          {copy.description}
         </p>
 
         {/* Social Links */}
@@ -229,8 +251,8 @@ export default function Hero() {
               </div>
             </div>
 
-            <h3 className="text-xl font-semibold text-white mb-2">微信联系我</h3>
-            <p className="text-white/50 text-sm mb-6">扫描下方二维码添加微信</p>
+            <h3 className="text-xl font-semibold text-white mb-2">{copy.wechatTitle}</h3>
+            <p className="text-white/50 text-sm mb-6">{copy.wechatDesc}</p>
 
             {/* QR Code placeholder - 替换为你的真实二维码图片 */}
             <div className="bg-white rounded-xl p-4 inline-block mb-4">
@@ -241,7 +263,7 @@ export default function Hero() {
               </div> */}
             </div>
 
-            <p className="text-white/40 text-xs">截图保存，打开微信扫一扫</p>
+            <p className="text-white/40 text-xs">{copy.wechatHint}</p>
           </div>
         </div>
       )}

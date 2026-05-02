@@ -1,17 +1,34 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import type { Language } from '@/types/language';
 
-const navLinks = [
-  { name: '关于我', href: '#about' },
-  { name: '获奖情况', href: '#awards' },
-  { name: '科研成果', href: '#research' },
-  { name: '项目经历', href: '#projects' },
-  { name: '相关技能', href: '#skills' },
-];
+const navLinks: Record<Language, Array<{ name: string; href: string }>> = {
+  zh: [
+    { name: '关于我', href: '#about' },
+    { name: '获奖情况', href: '#awards' },
+    { name: '科研成果', href: '#research' },
+    { name: '项目经历', href: '#projects' },
+    { name: '相关技能', href: '#skills' },
+  ],
+  en: [
+    { name: 'About', href: '#about' },
+    { name: 'Awards', href: '#awards' },
+    { name: 'Research', href: '#research' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Skills', href: '#skills' },
+  ],
+};
 
-export default function Navbar() {
+interface NavbarProps {
+  language: Language;
+  onToggleLanguage: () => void;
+}
+
+export default function Navbar({ language, onToggleLanguage }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isEnglish = language === 'en';
+  const links = navLinks[language];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,12 +72,12 @@ export default function Navbar() {
               }}
               className="text-xl font-bold text-white hover:text-neon-green transition-colors"
             >
-              <span className="text-gradient">王朴匀</span>
+              <span className="text-gradient">{isEnglish ? 'Puyun Wang' : '王朴匀'}</span>
             </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
+              {links.map((link) => (
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
@@ -73,12 +90,19 @@ export default function Navbar() {
             </div>
 
             {/* CTA Button */}
-            <div className="hidden md:block">
+            <div className="hidden md:flex items-center gap-3">
+              <button
+                type="button"
+                onClick={onToggleLanguage}
+                className="px-4 py-2 text-sm font-medium text-white/80 border border-white/20 rounded-full hover:text-white hover:border-neon-cyan/50 transition-all duration-300"
+              >
+                {isEnglish ? '中文' : 'English'}
+              </button>
               <button
                 onClick={() => scrollToSection('#contact')}
                 className="px-5 py-2 text-sm font-medium text-dark-bg bg-neon-green rounded-full hover:shadow-glow transition-all duration-300 hover:scale-105"
               >
-                联系我
+                {isEnglish ? 'Contact' : '联系我'}
               </button>
             </div>
 
@@ -100,7 +124,7 @@ export default function Navbar() {
         }`}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8">
-          {navLinks.map((link, index) => (
+          {links.map((link, index) => (
             <button
               key={link.name}
               onClick={() => scrollToSection(link.href)}
@@ -113,10 +137,17 @@ export default function Navbar() {
             </button>
           ))}
           <button
+            type="button"
+            onClick={onToggleLanguage}
+            className="px-8 py-3 text-lg font-medium text-white/90 border border-white/20 rounded-full"
+          >
+            {isEnglish ? '中文' : 'English'}
+          </button>
+          <button
             onClick={() => scrollToSection('#contact')}
             className="mt-4 px-8 py-3 text-lg font-medium text-dark-bg bg-neon-green rounded-full"
           >
-            联系我
+            {isEnglish ? 'Contact' : '联系我'}
           </button>
         </div>
       </div>

@@ -16,6 +16,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { withBase } from "@/utils/asset";
+import type { Language } from '@/types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -85,10 +86,28 @@ const skills = [
   },
 ];
 
-export default function Skills() {
+const skillTranslationsEn: Array<{ name: string; description: string }> = [
+  { name: 'Photoshop', description: 'Image editing and design' },
+  { name: 'CapCut', description: 'Video editing and post-production' },
+  { name: 'Guitar', description: 'Music performance' },
+  { name: 'Keil', description: 'Embedded development' },
+  { name: 'VSCode / PyCharm', description: 'Python development' },
+  { name: 'SolidWorks', description: '3D modeling and design' },
+  { name: 'MATLAB', description: 'Scientific computing and simulation' },
+];
+
+interface SkillsProps {
+  language: Language;
+}
+
+export default function Skills({ language }: SkillsProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeSkill, setActiveSkill] = useState<string | null>(null);
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const isEnglish = language === 'en';
+  const skillItems = isEnglish
+    ? skills.map((skill, index) => ({ ...skill, ...skillTranslationsEn[index] }))
+    : skills;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -146,7 +165,7 @@ export default function Skills() {
     return () => ctx.revert();
   }, []);
 
-  const currentSkill = skills.find((s) => s.name === (hoveredSkill || activeSkill));
+  const currentSkill = skillItems.find((s) => s.name === (hoveredSkill || activeSkill));
 
   return (
     <section
@@ -165,17 +184,25 @@ export default function Skills() {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="skills-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            相关<span className="text-gradient">技能</span>
+            {isEnglish ? (
+              <>
+                Related <span className="text-gradient">Skills</span>
+              </>
+            ) : (
+              <>
+                相关<span className="text-gradient">技能</span>
+              </>
+            )}
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            设计、编程与创意技能展示
+            {isEnglish ? 'A showcase of design, programming, and creative skills' : '设计、编程与创意技能展示'}
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Skills List */}
           <div className="skills-list space-y-4">
-            {skills.map((skill, index) => (
+            {skillItems.map((skill, index) => (
               <div
                 key={index}
                 className="skill-item group glass rounded-xl p-4 hover:border-white/20 transition-all duration-300 cursor-pointer"
@@ -311,7 +338,7 @@ export default function Skills() {
                     <Palette className="w-12 h-12 text-white/30" />
                   </div>
                   <p className="text-white/40 text-lg">
-                    悬停或点击技能查看详情
+                    {isEnglish ? 'Hover or click a skill to view details' : '悬停或点击技能查看详情'}
                   </p>
                 </div>
               )}
@@ -322,10 +349,10 @@ export default function Skills() {
         {/* Category badges */}
         <div className="mt-12 flex flex-wrap justify-center gap-4">
           {[
-            { name: '设计', icon: Palette, count: 2 },
-            { name: '视频', icon: Film, count: 1 },
-            { name: '音乐', icon: Guitar, count: 1 },
-            { name: '编程', icon: Code, count: 3 },
+            { name: isEnglish ? 'Design' : '设计', icon: Palette, count: 2 },
+            { name: isEnglish ? 'Video' : '视频', icon: Film, count: 1 },
+            { name: isEnglish ? 'Music' : '音乐', icon: Guitar, count: 1 },
+            { name: isEnglish ? 'Programming' : '编程', icon: Code, count: 3 },
           ].map((category, index) => (
             <div
               key={index}

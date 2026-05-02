@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FileText, Lightbulb, ExternalLink, Github } from 'lucide-react';
+import type { Language } from '@/types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -103,26 +104,45 @@ const papers: Paper[] = [
   // },
 ];
 
-const patents: Patent[] = [
-  {
-    title: '一种应用于平稳爬楼的送餐小车',
-    inventors: '朱兆聚,王朴匀,黄海涛,曹泰源,陈栋,苏晨烨',
-    number: 'CN116923583A',
-    date: '2023',
-    abstract:
-      '本发明公开一种平稳爬楼送餐小车，包括主车架、两侧麦克纳姆轮及由升降机构驱动的前后分节车体，可承载大重量餐盒，实现跨楼层稳定送餐。',
-    link: 'https://pss-system.cponline.cnipa.gov.cn/documents/detail?prevPageTit=changgui',
-    type: 'patent',
-  },
-];
+const patents: Record<Language, Patent[]> = {
+  zh: [
+    {
+      title: '一种应用于平稳爬楼的送餐小车',
+      inventors: '朱兆聚,王朴匀,黄海涛,曹泰源,陈栋,苏晨烨',
+      number: 'CN116923583A',
+      date: '2023',
+      abstract:
+        '本发明公开一种平稳爬楼送餐小车，包括主车架、两侧麦克纳姆轮及由升降机构驱动的前后分节车体，可承载大重量餐盒，实现跨楼层稳定送餐。',
+      link: 'https://pss-system.cponline.cnipa.gov.cn/documents/detail?prevPageTit=changgui',
+      type: 'patent',
+    },
+  ],
+  en: [
+    {
+      title: 'A Stair-Climbing Food Delivery Cart for Stable Transport',
+      inventors: 'Zhaoju Zhu, Puyun Wang, Haitao Huang, Taiyuan Cao, Dong Chen, Chenye Su',
+      number: 'CN116923583A',
+      date: '2023',
+      abstract:
+        'This invention discloses a stable stair-climbing food delivery cart with a main chassis, dual mecanum wheels, and a segmented body driven by a lifting mechanism, enabling heavy-load meal-box transport across floors.',
+      link: 'https://pss-system.cponline.cnipa.gov.cn/documents/detail?prevPageTit=changgui',
+      type: 'patent',
+    },
+  ],
+};
 
 function isPaper(item: ResearchItem): item is Paper {
   return item.type === 'paper';
 }
 
-export default function Research() {
+interface ResearchProps {
+  language: Language;
+}
+
+export default function Research({ language }: ResearchProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState<'papers' | 'patents'>('papers');
+  const isEnglish = language === 'en';
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -163,7 +183,7 @@ export default function Research() {
     return () => ctx.revert();
   }, []);
 
-  const currentItems: ResearchItem[] = activeTab === 'papers' ? papers : patents;
+  const currentItems: ResearchItem[] = activeTab === 'papers' ? papers : patents[language];
 
   return (
     <section
@@ -182,10 +202,18 @@ export default function Research() {
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="research-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            科研<span className="text-gradient">成果</span>
+            {isEnglish ? (
+              <>
+                Research <span className="text-gradient">Outputs</span>
+              </>
+            ) : (
+              <>
+                科研<span className="text-gradient">成果</span>
+              </>
+            )}
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            发表的学术论文与申请的专利
+            {isEnglish ? 'Published papers and filed patents' : '发表的学术论文与申请的专利'}
           </p>
         </div>
 
@@ -200,7 +228,7 @@ export default function Research() {
             }`}
           >
             <FileText className="w-4 h-4" />
-            学术论文
+            {isEnglish ? 'Papers' : '学术论文'}
           </button>
           <button
             onClick={() => setActiveTab('patents')}
@@ -211,7 +239,7 @@ export default function Research() {
             }`}
           >
             <Lightbulb className="w-4 h-4" />
-            专利
+            {isEnglish ? 'Patents' : '专利'}
           </button>
         </div>
 
@@ -260,7 +288,7 @@ export default function Research() {
                       className="flex items-center gap-2 px-4 py-2 rounded-full glass text-white/70 hover:text-white hover:border-neon-green/50 transition-all"
                     >
                       <Github className="w-4 h-4" />
-                      <span className="text-sm">代码</span>
+                      <span className="text-sm">{isEnglish ? 'Code' : '代码'}</span>
                     </a>
                   )}
                   {item.link && (
@@ -271,7 +299,7 @@ export default function Research() {
                       className="flex items-center gap-2 px-4 py-2 rounded-full bg-neon-green/10 border border-neon-green/30 text-neon-green hover:bg-neon-green/20 transition-all"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      <span className="text-sm">查看</span>
+                      <span className="text-sm">{isEnglish ? 'View' : '查看'}</span>
                     </a>
                   )}
                 </div>
@@ -284,12 +312,12 @@ export default function Research() {
         <div className="mt-12 flex justify-center gap-8">
           <div className="text-center">
             <p className="text-3xl font-bold text-gradient">{papers.length}</p>
-            <p className="text-white/50 text-sm mt-1">学术论文</p>
+            <p className="text-white/50 text-sm mt-1">{isEnglish ? 'Papers' : '学术论文'}</p>
           </div>
           <div className="w-px bg-white/10" />
           <div className="text-center">
-            <p className="text-3xl font-bold text-gradient">{patents.length}</p>
-            <p className="text-white/50 text-sm mt-1">专利</p>
+            <p className="text-3xl font-bold text-gradient">{patents[language].length}</p>
+            <p className="text-white/50 text-sm mt-1">{isEnglish ? 'Patents' : '专利'}</p>
           </div>
         </div>
       </div>

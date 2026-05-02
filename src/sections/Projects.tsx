@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code2, Cpu, Target, Briefcase } from 'lucide-react';
 import { withBase } from "@/utils/asset";
+import type { Language } from '@/types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -130,7 +131,103 @@ const projects = [
 
 ];
 
-export default function Projects() {
+const projectTranslationsEn: Array<{
+  title: string;
+  category: string;
+  description: string;
+  technologies: string[];
+}> = [
+  {
+    title: '6th World Photonics Conference',
+    category: 'Academic Conference',
+    description:
+      'Participated in the 2025 World Photonics Conference, followed keynote talks and technical sessions, and presented one EI-indexed paper while exchanging ideas with researchers in optics and photonics.',
+    technologies: ['Venue: Beijing National Convention Center', '1 EI paper presented'],
+  },
+  {
+    title: '16th International Conference on Frontier Design and Manufacturing',
+    category: 'Academic Conference',
+    description:
+      'Participated in ICFDM 2024, learned recent advances in design and manufacturing, attended expert talks, and discussed frontier directions including advanced manufacturing and intelligent design.',
+    technologies: ['Venue: Xiamen International Conference Center'],
+  },
+  {
+    title: 'YOLO-Based Multi-Target Adaptive Gimbal Tracking Servo System',
+    category: 'Master Project',
+    description:
+      'Built a high-precision dual-axis gimbal system with YOLO-based group-aware tracking. It locks onto a single target or follows the virtual center of multiple targets for smooth and stable field-of-view control.',
+    technologies: ['PyTorch', 'OpenCV', 'CUDA', 'STM32'],
+  },
+  {
+    title: 'STM32 Smart Desktop Pet',
+    category: 'Personal Interest',
+    description:
+      'Recreated an STM32-based smart desktop pet with voice-controlled OLED expressions and servo actions, plus remote motion control through a Bluetooth module.',
+    technologies: ['STM32', 'C', 'ROS', 'SolidWorks'],
+  },
+  {
+    title: 'Water-Surface Buoy Detection for Multirotor UAV Vision',
+    category: 'Undergraduate Thesis',
+    description:
+      'Introduced visible-infrared fusion for low-visibility night scenarios and integrated TIF, TGFuse, and SwinFusion before YOLOv5s detection, improving night mAP@0.5 from 72% to 95.8%.',
+    technologies: ['PyQT', 'PyTorch', 'STM32'],
+  },
+  {
+    title: 'Embedded Fire Early-Warning System with BP Neural Network',
+    category: 'Thesis Mentorship',
+    description:
+      'Designed a data-driven fire warning pipeline: STM32 collects environmental data and a host-side BP neural network predicts fire risk in real time, reaching 97.25% accuracy and 99.3% recall.',
+    technologies: ['PyQT', 'BP Neural Network', 'PyTorch', 'STM32'],
+  },
+  {
+    title: 'Machine Vision-Based Part Picking System',
+    category: 'Thesis Mentorship',
+    description:
+      'Developed a MATLAB real-time picking system with grayscale conversion, Gaussian filtering, Canny edges, hole filling, and contour extraction for dimension measurement with ~350 ms per frame.',
+    technologies: ['Gaussian Filtering', 'Edge Detection', 'Hole Filling', 'Vision Measurement'],
+  },
+  {
+    title: 'Parallel SCARA Robot Motion Control System (Project Lead)',
+    category: 'Undergraduate Course Project',
+    description:
+      'Led STM32 lower-controller development for a five-bar parallel SCARA robot, including inverse kinematics, interpolation algorithms, G-code parsing, and automatic homing.',
+    technologies: ['STM32', 'Interpolation Algorithms', 'Kinematics Programming', 'Stepper Motor Control', 'C# Host Software'],
+  },
+  {
+    title: 'Intelligent Delivery Cart During COVID-19 (Project Lead)',
+    category: 'Undergraduate Research Training Program',
+    description:
+      'Led design of a three-section mecanum-wheel delivery cart. Built virtual/physical prototypes and deployed a YOLOv5 house-number recognizer, improving inference latency from 50 ms to 4 ms with TensorRT.',
+    technologies: ['SolidWorks', 'Adams Simulation', 'YOLO'],
+  },
+  {
+    title: 'Concept Design and Prototype of a 3R Parallel Delta Robot',
+    category: 'Undergraduate Course Project',
+    description:
+      'Implemented forward and inverse kinematics in MATLAB, validated workspace and joint dimensions, and analyzed mobility via screw theory with verification against the Kutzbach-Grübler formula.',
+    technologies: ['SolidWorks', 'MATLAB Simulation', 'Robot Workspace Analysis'],
+  },
+  {
+    title: 'Bionic Multi-Leg Worm Robot',
+    category: 'Mechanical Design Innovation Competition',
+    description:
+      'Designed a biomimetic robot using servos and swing arms to mimic worm-like motion over complex terrain, integrated camera and IR sensors, and won a provincial second prize.',
+    technologies: ['SolidWorks', 'Arduino'],
+  },
+  {
+    title: 'Volunteer Service',
+    category: 'Student Activities',
+    description:
+      'Actively participated in campus and social volunteer activities during undergraduate and graduate study, including event support, community service, and public-interest outreach.',
+    technologies: [],
+  },
+];
+
+interface ProjectsProps {
+  language: Language;
+}
+
+export default function Projects({ language }: ProjectsProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
   const videoPostersRef = useRef<Record<string, string>>({});
@@ -139,6 +236,13 @@ export default function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeMedia, setActiveMedia] = useState<Record<number, number>>({});
   const [videoPosters, setVideoPosters] = useState<Record<string, string>>({});
+  const isEnglish = language === 'en';
+  const projectItems = isEnglish
+    ? projects.map((project, index) => ({
+        ...project,
+        ...projectTranslationsEn[index],
+      }))
+    : projects;
 
   const captureVideoPoster = (video: HTMLVideoElement, src: string) => {
     if (videoPostersRef.current[src]) return;
@@ -321,16 +425,26 @@ export default function Projects() {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="projects-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            项目<span className="text-gradient">经历</span>
+            {isEnglish ? (
+              <>
+                Project <span className="text-gradient">Experience</span>
+              </>
+            ) : (
+              <>
+                项目<span className="text-gradient">经历</span>
+              </>
+            )}
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            工程项目、竞赛、课程设计与毕业设计
+            {isEnglish
+              ? 'Engineering projects, competitions, course designs, and graduation works'
+              : '工程项目、竞赛、课程设计与毕业设计'}
           </p>
         </div>
 
         {/* Projects Grid */}
         <div className="projects-grid grid md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
+          {projectItems.map((project, index) => (
             <div
               key={index}
               className="project-card group relative glass rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-500"
@@ -408,7 +522,7 @@ export default function Projects() {
                                 backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
                               }}
                             />
-                            <p className="text-white/30 text-sm">项目图片</p>
+                            <p className="text-white/30 text-sm">{isEnglish ? 'Project Preview' : '项目图片'}</p>
                           </div>
                         </div>
                       </>
@@ -489,11 +603,11 @@ export default function Projects() {
         {/* Summary stats */}
         <div className="mt-16 glass rounded-2xl p-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {[
-              { value: '10+', label: '项目经历' },
-              { value: '3', label: '毕业设计' },
-              { value: '2', label: '竞赛项目' },
-              { value: '5+', label: '技术栈' },
+              {[
+              { value: '10+', label: isEnglish ? 'Project Entries' : '项目经历' },
+              { value: '3', label: isEnglish ? 'Thesis Projects' : '毕业设计' },
+              { value: '2', label: isEnglish ? 'Competition Projects' : '竞赛项目' },
+              { value: '5+', label: isEnglish ? 'Core Toolsets' : '技术栈' },
             ].map((stat, index) => (
               <div key={index}>
                 <p className="text-3xl md:text-4xl font-bold text-gradient mb-1">

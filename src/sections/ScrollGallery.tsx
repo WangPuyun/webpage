@@ -1,6 +1,7 @@
 // ScrollGallery.tsx
 import { useEffect, useRef, useState, useCallback } from "react";
 import { animate, scroll } from "motion";
+import type { Language } from '@/types/language';
 
 interface GalleryItem {
   src: string;
@@ -9,16 +10,18 @@ interface GalleryItem {
 
 interface ScrollGalleryProps {
   items: GalleryItem[];
+  language: Language;
 }
 
 // 控制滚动速度感受：越大滚得越慢
 const VH_PER_VW = 1.2;
 const MIN_HEIGHT_VH = 150;
 
-export default function ScrollGallery({ items }: ScrollGalleryProps) {
+export default function ScrollGallery({ items, language }: ScrollGalleryProps) {
   const containerRef = useRef<HTMLElement>(null);
   const [containerHeight, setContainerHeight] = useState(MIN_HEIGHT_VH);
   const cleanupRef = useRef<(() => void) | null>(null);
+  const isEnglish = language === 'en';
 
   const initScroll = useCallback(() => {
     const container = containerRef.current;
@@ -110,9 +113,19 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
       {/* Gallery Title */}
       <div className="text-center mt-20 mb-4">
         <h3 className="text-2xl md:text-3xl font-bold text-white/80">
-          证书<span className="text-gradient">展示</span>
+          {isEnglish ? (
+            <>
+              Certificate <span className="text-gradient">Gallery</span>
+            </>
+          ) : (
+            <>
+              证书<span className="text-gradient">展示</span>
+            </>
+          )}
         </h3>
-        <p className="text-white/40 text-sm mt-2">横向滚动浏览</p>
+        <p className="text-white/40 text-sm mt-2">
+          {isEnglish ? 'Horizontal scrolling view' : '横向滚动浏览'}
+        </p>
       </div>
 
       <section
@@ -125,7 +138,7 @@ export default function ScrollGallery({ items }: ScrollGalleryProps) {
             {items.map((item, i) => (
               <li key={i} className="img-container">
                 <div className="img-wrapper">
-                  <img src={item.src} alt={item.label || `证书 ${i + 1}`} />
+                  <img src={item.src} alt={item.label || (isEnglish ? `Certificate ${i + 1}` : `证书 ${i + 1}`)} />
                 </div>
                 {item.label && <h3>{item.label}</h3>}
               </li>

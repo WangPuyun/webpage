@@ -3,43 +3,80 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GraduationCap, Award, Users, BookOpen } from 'lucide-react';
 import { withBase } from "@/utils/asset";
+import type { Language } from '@/types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const education = [
-  {
-    period: '2020 - 2024',
-    school: '福州大学 211本科',
-    major: '机器人工程专业',
-    icon: GraduationCap,
-  },
-  {
-    period: '2024 - 2027',
-    school: '福州大学 211硕士',
-    major: '机械工程专业',
-    details: '专业排名 3/164，前 2%',
-    icon: GraduationCap,
-  },
-];
+const education: Record<
+  Language,
+  Array<{ period: string; school: string; major: string; details?: string; icon: typeof GraduationCap }>
+> = {
+  zh: [
+    {
+      period: '2020 - 2024',
+      school: '福州大学 211本科',
+      major: '机器人工程专业',
+      icon: GraduationCap,
+    },
+    {
+      period: '2024 - 2027',
+      school: '福州大学 211硕士',
+      major: '机械工程专业',
+      details: '专业排名 3/164，前 2%',
+      icon: GraduationCap,
+    },
+  ],
+  en: [
+    {
+      period: '2020 - 2024',
+      school: 'Fuzhou University (Project 211), B.Eng.',
+      major: 'Robotics Engineering',
+      icon: GraduationCap,
+    },
+    {
+      period: '2024 - 2027',
+      school: 'Fuzhou University (Project 211), M.Eng.',
+      major: 'Mechanical Engineering',
+      details: 'Program ranking: 3/164, top 2%',
+      icon: GraduationCap,
+    },
+  ],
+};
 
-const memberships = [
-  { name: 'IEEE学生会员', icon: Users },
-  { name: '中国光学工程学会学生会员', icon: Users },
+const memberships: Record<Language, Array<{ name: string; icon: typeof Users }>> = {
+  zh: [
+    { name: 'IEEE学生会员', icon: Users },
+    { name: '中国光学工程学会学生会员', icon: Users },
+  ],
+  en: [
+    { name: 'IEEE Student Member', icon: Users },
+    { name: 'Student Member, Chinese Society for Optical Engineering', icon: Users },
+  ],
+};
 
-];
+const researchAreas: Record<Language, string[]> = {
+  zh: ['智能计算机视觉', '计算成像', '仿生视觉信息处理', '机器人视觉算法', '机器人编程'],
+  en: [
+    'Intelligent Computer Vision',
+    'Computational Imaging',
+    'Bionic Visual Information Processing',
+    'Robot Vision Algorithms',
+    'Robot Programming',
+  ],
+};
 
-const researchAreas = [
-  '智能计算机视觉',
-  '计算成像',
-  '仿生视觉信息处理',
-  '机器人视觉算法',
-  '机器人编程',
-];
+interface AboutProps {
+  language: Language;
+}
 
-export default function About() {
+export default function About({ language }: AboutProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const isEnglish = language === 'en';
+  const educationItems = education[language];
+  const membershipItems = memberships[language];
+  const areaItems = researchAreas[language];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -115,7 +152,15 @@ export default function About() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <h2 className="about-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-16">
-          关于<span className="text-gradient">我</span>
+          {isEnglish ? (
+            <>
+              About <span className="text-gradient">Me</span>
+            </>
+          ) : (
+            <>
+              关于<span className="text-gradient">我</span>
+            </>
+          )}
         </h2>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
@@ -125,7 +170,7 @@ export default function About() {
                   {/* 个人照片 */}
                   <img 
                     src={withBase("/images/personal_photo3.jpg")}
-                    alt="王普云"
+                    alt={isEnglish ? 'Puyun Wang' : '王朴匀'}
                     className="w-full h-full object-cover"
                   />
 
@@ -139,12 +184,12 @@ export default function About() {
           <div ref={contentRef} className="space-y-8">
             {/* Education */}
             <div className="about-item">
-              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-neon-green" />
-                教育背景
+                {isEnglish ? 'Education' : '教育背景'}
               </h3>
               <div className="space-y-4">
-                {education.map((edu, index) => (
+                {educationItems.map((edu, index) => (
                   <div
                     key={index}
                     className="glass rounded-xl p-4 hover:border-neon-green/30 transition-colors"
@@ -160,7 +205,7 @@ export default function About() {
                       <div className="mt-3 flex items-center gap-2">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neon-green/10 border border-neon-green/30 text-neon-green text-xs font-medium">
                           <Award className="w-3.5 h-3.5" />
-                          CET-6 英语六级
+                          {isEnglish ? 'CET-6 English Certificate' : 'CET-6 英语六级'}
                         </span>
                       </div>
                     )}
@@ -173,10 +218,10 @@ export default function About() {
             <div className="about-item">
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-neon-purple" />
-                学术会员
+                {isEnglish ? 'Memberships' : '学术会员'}
               </h3>
               <div className="flex flex-wrap gap-3">
-                {memberships.map((member, index) => (
+                {membershipItems.map((member, index) => (
                   <div
                     key={index}
                     className="glass rounded-full px-4 py-2 flex items-center gap-2"
@@ -192,10 +237,10 @@ export default function About() {
             <div className="about-item">
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-neon-cyan" />
-                研究方向
+                {isEnglish ? 'Research Interests' : '研究方向'}
               </h3>
               <div className="flex flex-wrap gap-3">
-                {researchAreas.map((area, index) => (
+                {areaItems.map((area, index) => (
                   <span
                     key={index}
                     className="px-4 py-2 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan text-sm hover:bg-neon-cyan/20 transition-colors"

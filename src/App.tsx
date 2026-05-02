@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -10,10 +10,22 @@ import Research from './sections/Research';
 import Projects from './sections/Projects';
 import Skills from './sections/Skills';
 import Footer from './sections/Footer';
+import type { Language } from './types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const LANGUAGE_STORAGE_KEY = 'portfolio-language';
+
 function App() {
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === 'undefined') {
+      return 'zh';
+    }
+
+    const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    return storedLanguage === 'en' ? 'en' : 'zh';
+  });
+
   useEffect(() => {
     // Initialize smooth scroll behavior
     document.documentElement.style.scrollBehavior = 'smooth';
@@ -26,6 +38,15 @@ function App() {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = language === 'en' ? 'en' : 'zh-CN';
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+  }, [language]);
+
+  const toggleLanguage = () => {
+    setLanguage((currentLanguage) => (currentLanguage === 'zh' ? 'en' : 'zh'));
+  };
 
   return (
     <div className="relative min-h-screen bg-dark-bg text-white">
@@ -61,17 +82,17 @@ function App() {
       </div>
 
       {/* Navigation */}
-      <Navbar />
+      <Navbar language={language} onToggleLanguage={toggleLanguage} />
 
       {/* Main content */}
       <main className="relative z-10">
-        <Hero />
-        <About />
-        <Awards />
-        <Research />
-        <Projects />
-        <Skills />
-        <Footer />
+        <Hero language={language} />
+        <About language={language} />
+        <Awards language={language} />
+        <Research language={language} />
+        <Projects language={language} />
+        <Skills language={language} />
+        <Footer language={language} />
       </main>
 
       {/* Noise overlay */}

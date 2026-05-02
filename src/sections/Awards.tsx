@@ -5,10 +5,15 @@ import { BadgeCheck, Medal, Award, Star, HeartHandshake, Lightbulb } from 'lucid
 import ScrollGallery from "./ScrollGallery";
 import "./ScrollGallery.css";
 import { withBase } from "@/utils/asset";
+import type { Language } from '@/types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const awards = [
+const awards: Record<
+  Language,
+  Array<{ title: string; level: string; period: string; description: string; icon: typeof Medal; color: string }>
+> = {
+  zh: [
   // {
   //   title: '国家奖学金',
   //   level: '国家级',
@@ -65,7 +70,58 @@ const awards = [
     icon: HeartHandshake,
     color: 'from-rose-400 via-pink-500 to-fuchsia-600',
   },
-];
+  ],
+  en: [
+    {
+      title: 'First-Class Mid-Term Graduate Scholarship, Fuzhou University',
+      level: 'University',
+      period: '2026',
+      description: 'Awarded for outstanding performance in the graduate mid-term evaluation.',
+      icon: Medal,
+      color: 'from-neon-green to-emerald-500',
+    },
+    {
+      title: 'Outstanding Graduate Advancement Award (Class of 2024), Fuzhou University',
+      level: 'University',
+      period: 'Jun 2024',
+      description: 'Recognized as an advanced individual for undergraduate progression to graduate studies.',
+      icon: BadgeCheck,
+      color: 'from-red-400 via-rose-500 to-pink-600',
+    },
+    {
+      title: 'Third Prize, Comprehensive Undergraduate Scholarship, Fuzhou University',
+      level: 'University',
+      period: '2023',
+      description: 'Granted for excellent comprehensive performance during undergraduate study.',
+      icon: Star,
+      color: 'from-neon-purple to-violet-500',
+    },
+    {
+      title: 'Second Prize, Fujian Provincial Mechanical Design Innovation Competition',
+      level: 'Provincial',
+      period: '2022',
+      description: 'Won second prize in the provincial mechanical design innovation competition.',
+      icon: Award,
+      color: 'from-neon-cyan to-blue-500',
+    },
+    {
+      title: 'Campus Award, National Mechanical Innovation Design Competition (Fuzhou University)',
+      level: 'University',
+      period: '2021',
+      description: 'Won second prize in the university-level round of the national mechanical innovation design competition.',
+      icon: Lightbulb,
+      color: 'from-teal-400 via-emerald-500 to-cyan-600',
+    },
+    {
+      title: 'Special Scholarship for Spiritual Civilization Development, Fuzhou University (2020-2021)',
+      level: 'School',
+      period: '2020-2021',
+      description: 'Recognized for strong performance in civic engagement and volunteer service.',
+      icon: HeartHandshake,
+      color: 'from-rose-400 via-pink-500 to-fuchsia-600',
+    },
+  ],
+};
 
 const galleryItems = [
   { src: withBase("/images/cert-4.png"), label: "" },
@@ -74,10 +130,15 @@ const galleryItems = [
   { src: withBase("/images/cert-1.png"), label: "" },
 ];
 
+interface AwardsProps {
+  language: Language;
+}
 
-export default function Awards() {
+export default function Awards({ language }: AwardsProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const isEnglish = language === 'en';
+  const awardItems = awards[language];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -138,10 +199,20 @@ export default function Awards() {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="awards-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            获奖<span className="text-gradient">情况</span>
+            {isEnglish ? (
+              <>
+                Award <span className="text-gradient">Highlights</span>
+              </>
+            ) : (
+              <>
+                获奖<span className="text-gradient">情况</span>
+              </>
+            )}
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            本科与硕士期间获得的荣誉与认可
+            {isEnglish
+              ? 'Honors and recognitions received during undergraduate and graduate studies'
+              : '本科与硕士期间获得的荣誉与认可'}
           </p>
         </div>
 
@@ -150,7 +221,7 @@ export default function Awards() {
           ref={cardsRef}
           className="grid md:grid-cols-2 gap-6 perspective-1000"
         >
-          {awards.map((award, index) => (
+          {awardItems.map((award, index) => (
             <div
               key={index}
               className="award-card group relative glass rounded-2xl p-6 hover:border-white/20 transition-all duration-500 cursor-pointer overflow-hidden"
@@ -208,10 +279,10 @@ export default function Awards() {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { value: '5+', label: '获奖总数' },
-            { value: '1', label: '国家级' },
-            { value: '1', label: '省级' },
-            { value: '2', label: '校级' },
+            { value: '5+', label: isEnglish ? 'Total Awards' : '获奖总数' },
+            { value: '1', label: isEnglish ? 'National' : '国家级' },
+            { value: '1', label: isEnglish ? 'Provincial' : '省级' },
+            { value: '2', label: isEnglish ? 'University' : '校级' },
           ].map((stat, index) => (
             <div
               key={index}
@@ -226,7 +297,7 @@ export default function Awards() {
         </div>
         {/* Certificates Gallery */}
         <div className="mt-8">
-          <ScrollGallery items={galleryItems} />
+          <ScrollGallery items={galleryItems} language={language} />
         </div>
         
       </div>
