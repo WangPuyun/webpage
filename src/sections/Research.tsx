@@ -33,7 +33,7 @@ const papers: Paper[] = [
   // {
   //   title: 'UD-SfPNet: An Underwater Descattering Shape-from-Polarization Network for 3D Normal Reconstruction',
   //   authors: 'Puyun Wang, Kaimin Yu, Huayang He, Feng Huang, Xianyu Wu, Yating Chen',
-  //   journal: 'Information Fusion (一区Top，IF=15.7，With Editor）',
+  //   journal: 'Pattern Recognition (一区Top，IF=9.1）',
   //   year: '2026',
   //   abstract:
   //     'UD-SfPNet jointly performs polarization-based descattering and surface normal estimation in a unified framework with color embedding and detail enhancement. It achieves state-of-the-art accuracy (15.12° mean error) on MuS-Polar3D dataset.',
@@ -62,26 +62,26 @@ const papers: Paper[] = [
   //   // link: 'https://example.com/paper1',
   //   type: 'paper',
   // },
-  // {
-  //   title: 'Structure-Aware Consistency Priors for Shape from Polarization in Complex Media',
-  //   authors: 'Kaimin Yu, Puyun Wang, Huayang He, Xianyu Wu',
-  //   journal: 'International Conference on Machine Learning (CCF-A，投稿中）',
-  //   year: '2025',
-  //   abstract:
-  //     'This paper propose IceSfP, a dual-branch network that integrates structure-aware polarization priors with raw features via cross-modal attention for surface normal estimation in ice. It achieves 16.01° MAE, outperforming existing methods.',
-  //   // link: 'https://example.com/paper1',
-  //   type: 'paper',
-  // },
-  // {
-  //   title: 'Recent Advances in Polarization-Based 3D Imaging: From Physics Models to Neural Implicit Representations',
-  //   authors: 'Kaimin Yu, Puyun Wang, Fei Dong, Xu Li, Xianyu Wu, FengHuang',
-  //   journal: 'Computational Visual Media (二区，IF=7.5，Major Revision）',
-  //   year: '2025',
-  //   abstract:
-  //     'This survey reviews polarization-based 3D imaging, focusing on data-driven and neural implicit representation methods alongside physics-based approaches. It summarizes datasets, metrics, challenges, and future directions including generalization, system design, and deployment.',
-  //   // link: 'https://example.com/paper1',
-  //   type: 'paper',
-  // },
+  {
+    title: 'Structure-Aware Consistency Priors for Shape from Polarization in Complex Media',
+    authors: 'Kaimin Yu, Puyun Wang, Huayang He, Xianyu Wu',
+    journal: 'International Conference on Machine Learning (ICML 2026, CCF-A)',
+    year: '2026',
+    abstract:
+      'This paper propose IceSfP, a dual-branch network that integrates structure-aware polarization priors with raw features via cross-modal attention for surface normal estimation in ice. It achieves 16.01° MAE, outperforming existing methods.',
+    link: 'https://openreview.net/pdf?id=RVq8zBMmaJ',
+    type: 'paper',
+  },
+  {
+    title: 'Recent Advances in Polarization-Based 3D Imaging: From Physics Models to Neural Implicit Representations',
+    authors: 'Kaimin Yu, Puyun Wang, Fei Dong, Xu Li, Xianyu Wu, FengHuang',
+    journal: 'Computational Visual Media (JCR Q1, 软件工程类一区, 计算机科学二区,IF=8.4)',
+    year: '2026',
+    abstract:
+      'This survey reviews polarization-based 3D imaging, focusing on data-driven and neural implicit representation methods alongside physics-based approaches. It summarizes datasets, metrics, challenges, and future directions including generalization, system design, and deployment.',
+    // link: 'https://example.com/paper1',
+    type: 'paper',
+  },
   {
     title: 'A cross-modality feature fusion framework for low-light image enhancement',
     authors: 'Puyun Wang, Xianyu Wu, Jiacai Lin, FengHuang',
@@ -92,16 +92,6 @@ const papers: Paper[] = [
     link: 'https://doi.org/10.1117/12.3078191',
     type: 'paper',
   },
-  // {
-  //   title: '仿生视觉信息处理在机器人导航中的应用',
-  //   authors: '王朴匀, 等',
-  //   journal: '机器人',
-  //   year: '2024',
-  //   abstract:
-  //     '受生物视觉系统启发，设计了一种仿生视觉信息处理框架，应用于机器人自主导航任务。该方法能够有效处理复杂环境下的视觉信息，提高导航精度。',
-  //   link: 'https://example.com/paper2',
-  //   type: 'paper',
-  // },
 ];
 
 const patents: Record<Language, Patent[]> = {

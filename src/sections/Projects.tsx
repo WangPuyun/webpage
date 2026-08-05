@@ -8,7 +8,17 @@ import type { Language } from '@/types/language';
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-    {
+  {
+    title: '第四十三届国际机器学习大会',
+    category: '学术会议',
+    description:
+      '参与“International Conference on Machine Learning(ICML 2026)”人工智能领域顶级会议，系统了解计算机视觉与人工智能领域的前沿研究进展，聆听国际专家学者的学术报告，并与相关领域研究人员开展交流。会议期间发表CCF-A类论文并参与海报宣讲。',
+    technologies: ['参会地点：韩国首尔 COEX', '发表CCF-A论文1篇'],
+    icon: Target,
+    color: 'from-neon-green to-emerald-500',
+    images: [withBase("/images/ICML1.jpg"),withBase("/images/ICML2.jpg"),withBase("/images/ICML3.jpg"),withBase("/images/ICML4.jpg")],
+  },
+  {
     title: '第六届世界光子大会',
     category: '学术会议',
     description:
@@ -18,7 +28,7 @@ const projects = [
     color: 'from-neon-green to-emerald-500',
     images: [withBase("/images/AOPC1.jpg"),withBase("/images/AOPC2.jpg")],
   },
-    {
+  {
     title: '第十六届设计与制造前沿国际会议',
     category: '学术会议',
     description:
@@ -27,6 +37,16 @@ const projects = [
     icon: Target,
     color: 'from-neon-green to-emerald-500',
     images: [withBase("/images/Amoy Conference_1.jpg"),withBase("/images/Amoy Conference_2.jpg")],
+  },
+  {
+    title: '星网锐捷AI算法实习生',
+    category: '实习经历',
+    description:
+      '实习期间参与易拍商业软件 AI 人像融图研发，将小红书模型的融图能力蒸馏至 Flux，并基于多智能体对抗协作实现 LoRA 自动调参，使人工干预次数降低 25 倍、模型性能提升 16%；进一步设计频域损失、Flow余弦相似度损失与 Lab 色域损失，性能再提升 3%。',
+    technologies: ['Multi-Agent', 'Auto Research', 'Flux2-Klein-9B', 'FireRed-Image-Edit-20B', '大模型蒸馏', 'LoRA优化', 'DiT', '图像编辑', 'MCP', 'Diffusion', 'Flow Matching'],
+    icon: Code2,
+    color: 'from-neon-green to-emerald-500',
+    images: [withBase("/images/StarNet1.jpg"),withBase("/images/StarNet2.jpg"),withBase("/images/StarNet3.jpg")],
   },
   {
     title: '基于YOLO的多目标自适应几何中心实时跟踪云台伺服系统',
