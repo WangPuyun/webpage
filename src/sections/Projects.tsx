@@ -42,7 +42,7 @@ const projects = [
     title: '星网锐捷AI算法实习生',
     category: '实习经历',
     description:
-      '实习期间参与易拍商业软件 AI 人像融图研发，将小红书模型的融图能力蒸馏至 Flux，并基于多智能体对抗协作实现 LoRA 自动调参，使人工干预次数降低 25 倍、模型性能提升 16%；进一步设计频域损失、Flow余弦相似度损失与 Lab 色域损失，性能再提升 3%。',
+      '实习期间参与易拍商业软件 AI 人像融图研发，将小红书模型的融图能力蒸馏至 Flux，并基于多智能体对抗协作实现 LoRA 自动调参，使人工干预次数降低 25 倍、模型性能提升 16%；进一步设计频域损失、Flow余弦相似度损失与 Lab 色域损失，性能再提升 8%。',
     technologies: ['Multi-Agent', 'Auto Research', 'Flux2-Klein-9B', 'FireRed-Image-Edit-20B', '大模型蒸馏', 'LoRA优化', 'DiT', '图像编辑', 'MCP', 'Diffusion', 'Flow Matching'],
     icon: Code2,
     color: 'from-neon-green to-emerald-500',
