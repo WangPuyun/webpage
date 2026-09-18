@@ -30,46 +30,38 @@ interface Patent {
 type ResearchItem = Paper | Patent;
 
 const papers: Paper[] = [
-  // {
-  //   title: 'UD-SfPNet: An Underwater Descattering Shape-from-Polarization Network for 3D Normal Reconstruction',
-  //   authors: 'Puyun Wang, Kaimin Yu, Huayang He, Feng Huang, Xianyu Wu, Yating Chen',
-  //   journal: 'Pattern Recognition (一区Top，IF=9.1）',
-  //   year: '2026',
-  //   abstract:
-  //     'UD-SfPNet jointly performs polarization-based descattering and surface normal estimation in a unified framework with color embedding and detail enhancement. It achieves state-of-the-art accuracy (15.12° mean error) on MuS-Polar3D dataset.',
-  //   // link: 'https://example.com/paper1',
-  //   github: 'https://github.com/WangPuyun/UD-SfPNet.git',
-  //   type: 'paper',
-  // },
-  // {
-  //   title: 'MuS-Polar3D: A Benchmark Dataset for Computational Polarimetric 3D Imaging under Multi-Scattering Conditions',
-  //   authors: 'Puyun Wang, Kaimin Yu, Huayang He, Xianyu Wu',
-  //   journal: 'IEEE Transactions on Image Processing (一区Top，IF=13.7，Under Review）',
-  //   year: '2025',
-  //   abstract:
-  //     'MuS-Polar3D is a benchmark for polarization-based underwater 3D imaging, featuring 42 objects under controlled scattering and multi-view conditions with precise ground truth. It enables fair evaluation across tasks, achieving 15.49° best mean angular error.',
-  //   link: 'https://arxiv.org/abs/2512.21513',
-  //   github: 'https://github.com/WangPuyun/MuS-Polar3D.git',
-  //   type: 'paper',
-  // },
-  // {
-  //   title: 'A Structured Learning Framework for Underwater Polarization-Based 3D Reconstruction',
-  //   authors: 'Puyun Wang, Kaimin Yu, Huayang He, Xianyu Wu',
-  //   journal: 'International Conference on Machine Learning (CCF-A，投稿中）',
-  //   year: '2025',
-  //   abstract:
-  //     'This paper propose an end-to-end framework that jointly performs underwater polarization descattering and SfP normal estimation by coupling restoration with geometry learning. On MuS-Polar3D, it achieves 15.12° mean angular error and robust performance under varying scattering.',
-  //   // link: 'https://example.com/paper1',
-  //   type: 'paper',
-  // },
+
+  {
+    title: 'UD-SfPNet: An Underwater Descattering Shape-from-Polarization Network for 3D Normal Reconstruction',
+    authors: 'Puyun Wang, Kaimin Yu, Huayang He, Feng Huang, Xianyu Wu, Yating Chen',
+    journal: 'Pattern Recognition(JCR Q1, 一区Top, 人工智能-模式识别领域顶刊, CCF-B, IF=9.1)',
+    year: '2027',
+    abstract:
+      'UD-SfPNet jointly performs polarization-based descattering and surface normal estimation in a unified framework with color embedding and detail enhancement. It achieves state-of-the-art accuracy (15.12° mean error) on MuS-Polar3D dataset.',
+    link: 'https://www.sciencedirect.com/science/article/pii/S0031320326017917',
+    github: 'https://github.com/WangPuyun/UD-SfPNet',
+    type: 'paper',
+  },
+
   {
     title: 'Structure-Aware Consistency Priors for Shape from Polarization in Complex Media',
     authors: 'Kaimin Yu, Puyun Wang, Huayang He, Xianyu Wu',
-    journal: 'International Conference on Machine Learning (ICML 2026, CCF-A)',
+    journal: 'International Conference on Machine Learning (ICML 2026, 人工智能-机器学习领域顶级会议, CCF-A)',
     year: '2026',
     abstract:
       'This paper propose IceSfP, a dual-branch network that integrates structure-aware polarization priors with raw features via cross-modal attention for surface normal estimation in ice. It achieves 16.01° MAE, outperforming existing methods.',
     link: 'https://openreview.net/pdf?id=RVq8zBMmaJ',
+    type: 'paper',
+  },
+    {
+    title: 'Mamba-SfP: Toward Open-Scene 3D Shape from Polarization via Selective State Space Models',
+    authors: 'Puyun Wang, Kaimin Yu, Huayang He, Feng Huang, Xianyu Wu, Yating Chen',
+    journal: 'Optics & Laser Technology(JCR Q1, 二区Top, IF=5.4)',
+    year: '2026',
+    abstract:
+      'Mamba-SfP combines an optical-property-independent polarization representation with selective state space modeling for efficient surface normal estimation across open-scene conditions.',
+    link: 'https://www.sciencedirect.com/science/article/pii/S0030399226017317',
+    github: 'https://github.com/WangPuyun/Mamba-SfP',
     type: 'paper',
   },
   {
@@ -80,6 +72,18 @@ const papers: Paper[] = [
     abstract:
       'This survey reviews polarization-based 3D imaging, focusing on data-driven and neural implicit representation methods alongside physics-based approaches. It summarizes datasets, metrics, challenges, and future directions including generalization, system design, and deployment.',
     // link: 'https://example.com/paper1',
+    github: 'https://github.com/ykmmm0/Polarization-3D-Imaging.git',
+    type: 'paper',
+  },
+  {
+    title: 'MuS-Polar3D: A Benchmark Dataset for Computational Polarimetric 3D Imaging under Multi-Scattering Conditions',
+    authors: 'Puyun Wang, Kaimin Yu, Huayang He, Xianyu Wu',
+    journal: 'Arxiv',
+    year: '2025',
+    abstract:
+      'MuS-Polar3D is a benchmark for polarization-based underwater 3D imaging, featuring 42 objects under controlled scattering and multi-view conditions with precise ground truth. It enables fair evaluation across tasks, achieving 15.49° best mean angular error.',
+    link: 'https://arxiv.org/abs/2512.21513',
+    github: 'https://github.com/WangPuyun/MuS-Polar3D.git',
     type: 'paper',
   },
   {
