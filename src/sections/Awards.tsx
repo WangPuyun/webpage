@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BadgeCheck, Medal, Award, Star, HeartHandshake, Lightbulb } from 'lucide-react';
+import { BadgeCheck, Medal, Award, Star, HeartHandshake, Lightbulb, Flag } from 'lucide-react';
 import ScrollGallery from "./ScrollGallery";
 import "./ScrollGallery.css";
 import { withBase } from "@/utils/asset";
@@ -40,6 +40,15 @@ const awards: Record<
     description: '研究生中期考核优秀，获得一等奖学金',
     icon: Medal,
     color: 'from-neon-green to-emerald-500',
+  },
+    {
+    title: '福州大学2024年度五四红旗团支部',
+    level: '校级',
+    scope: 'university',
+    period: '2025年',
+    description: '积极参与集体建设，助力所在集体获评五四荣誉称号',
+    icon: Flag,
+    color: 'from-red-500 via-rose-500 to-orange-500',
   },
   {
     title: '福州大学2024届本科毕业生升学先进个人',
@@ -146,6 +155,7 @@ const awards: Record<
 };
 
 const galleryItems = [
+  { src: withBase("/images/cert-5.png"), label: "" },
   { src: withBase("/images/cert-4.png"), label: "" },
   { src: withBase("/images/cert-3.png"), label: "" },
   { src: withBase("/images/cert-2.png"), label: "" },
