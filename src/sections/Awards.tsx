@@ -9,9 +9,19 @@ import type { Language } from '@/types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
+type AwardScope = 'national' | 'provincial' | 'university' | 'school';
+
 const awards: Record<
   Language,
-  Array<{ title: string; level: string; period: string; description: string; icon: typeof Medal; color: string }>
+  Array<{
+    title: string;
+    level: string;
+    scope: AwardScope;
+    period: string;
+    description: string;
+    icon: typeof Medal;
+    color: string;
+  }>
 > = {
   zh: [
   // {
@@ -25,6 +35,7 @@ const awards: Record<
   {
     title: '福州大学研究生中期奖学金一等奖',
     level: '校级',
+    scope: 'university',
     period: '2026年',
     description: '研究生中期考核优秀，获得一等奖学金',
     icon: Medal,
@@ -33,6 +44,7 @@ const awards: Record<
   {
     title: '福州大学2024届本科毕业生升学先进个人',
     level: '校级',
+    scope: 'university',
     period: '2024年6月',
     description: '获评福州大学2024届本科毕业生升学先进个人称号',
     icon: BadgeCheck,
@@ -41,6 +53,7 @@ const awards: Record<
   {
     title: '福州大学本科生校级综合奖学金三等奖',
     level: '校级',
+    scope: 'university',
     period: '2023',
     description: '本科阶段综合表现优秀',
     icon: Star,
@@ -49,6 +62,7 @@ const awards: Record<
   {
     title: '福建省机械设计创新大赛二等奖',
     level: '省级',
+    scope: 'provincial',
     period: '2022',
     description: '机械设计创新大赛省级二等奖',
     icon: Award,
@@ -57,6 +71,7 @@ const awards: Record<
   {
     title: '全国大学生机械创新设计大赛福州大学校赛',
     level: '校级',
+    scope: 'university',
     period: '2021',
     description: '机械创新设计大赛校赛二等奖',
     icon: Lightbulb,
@@ -65,6 +80,7 @@ const awards: Record<
   {
     title: '福州大学20-21学年精神文明建设单项奖学金',
     level: '院级',
+    scope: 'school',
     period: '2020-2021学年',
     description: '表彰精神文明建设与志愿服务等综合表现',
     icon: HeartHandshake,
@@ -75,6 +91,7 @@ const awards: Record<
     {
       title: 'First-Class Mid-Term Graduate Scholarship, Fuzhou University',
       level: 'University',
+      scope: 'university',
       period: '2026',
       description: 'Awarded for outstanding performance in the graduate mid-term evaluation.',
       icon: Medal,
@@ -83,6 +100,7 @@ const awards: Record<
     {
       title: 'Outstanding Graduate Advancement Award (Class of 2024), Fuzhou University',
       level: 'University',
+      scope: 'university',
       period: 'Jun 2024',
       description: 'Recognized as an advanced individual for undergraduate progression to graduate studies.',
       icon: BadgeCheck,
@@ -91,6 +109,7 @@ const awards: Record<
     {
       title: 'Third Prize, Comprehensive Undergraduate Scholarship, Fuzhou University',
       level: 'University',
+      scope: 'university',
       period: '2023',
       description: 'Granted for excellent comprehensive performance during undergraduate study.',
       icon: Star,
@@ -99,6 +118,7 @@ const awards: Record<
     {
       title: 'Second Prize, Fujian Provincial Mechanical Design Innovation Competition',
       level: 'Provincial',
+      scope: 'provincial',
       period: '2022',
       description: 'Won second prize in the provincial mechanical design innovation competition.',
       icon: Award,
@@ -107,6 +127,7 @@ const awards: Record<
     {
       title: 'Campus Award, National Mechanical Innovation Design Competition (Fuzhou University)',
       level: 'University',
+      scope: 'university',
       period: '2021',
       description: 'Won second prize in the university-level round of the national mechanical innovation design competition.',
       icon: Lightbulb,
@@ -115,6 +136,7 @@ const awards: Record<
     {
       title: 'Special Scholarship for Spiritual Civilization Development, Fuzhou University (2020-2021)',
       level: 'School',
+      scope: 'school',
       period: '2020-2021',
       description: 'Recognized for strong performance in civic engagement and volunteer service.',
       icon: HeartHandshake,
@@ -139,6 +161,21 @@ export default function Awards({ language }: AwardsProps) {
   const cardsRef = useRef<HTMLDivElement>(null);
   const isEnglish = language === 'en';
   const awardItems = awards[language];
+  const stats = [
+    { value: awardItems.length, label: isEnglish ? 'Total Awards' : '获奖总数' },
+    {
+      value: awardItems.filter((award) => award.scope === 'national').length,
+      label: isEnglish ? 'National' : '国家级',
+    },
+    {
+      value: awardItems.filter((award) => award.scope === 'provincial').length,
+      label: isEnglish ? 'Provincial' : '省级',
+    },
+    {
+      value: awardItems.filter((award) => award.scope === 'university').length,
+      label: isEnglish ? 'University' : '校级',
+    },
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -278,12 +315,7 @@ export default function Awards({ language }: AwardsProps) {
 
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { value: '5+', label: isEnglish ? 'Total Awards' : '获奖总数' },
-            { value: '1', label: isEnglish ? 'National' : '国家级' },
-            { value: '1', label: isEnglish ? 'Provincial' : '省级' },
-            { value: '2', label: isEnglish ? 'University' : '校级' },
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <div
               key={index}
               className="text-center glass rounded-xl p-4 hover:border-neon-green/30 transition-colors"
