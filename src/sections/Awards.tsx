@@ -155,6 +155,7 @@ const awards: Record<
 };
 
 const galleryItems = [
+  { src: withBase("/images/cert-6.png"), label: "" },
   { src: withBase("/images/cert-5.png"), label: "" },
   { src: withBase("/images/cert-4.png"), label: "" },
   { src: withBase("/images/cert-3.png"), label: "" },
